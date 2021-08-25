@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="switchCompatStyle" parent="Theme.AppCompat.Light">
+        <item name="colorControlActivated">#00000000</item>
+        <item name="colorSwitchThumbNormal">#00000000</item>
+        <item name="android:colorForeground">#00000000</item>
+    </style>
+
+    <style name="sprPsgNotificationGoOpenUIStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginRight">24dp</item>
+        <item name="android:paddingLeft">12dp</item>
+        <item name="android:paddingTop">16dp</item>
+        <item name="android:paddingBottom">16dp</item>
+        <item name="android:background">#0FF</item>
+        <item name="android:drawableRight">@drawable/light_blue_right_arrow_icon</item>
+        <item name="android:drawablePadding">4dp</item>
+        <item name="android:textColor">#F00</item>
+        <item name="android:textSize">12dp</item>
+        <item name="android:text">去看看</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="sprPsgNotificationSwitchUIStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginRight">24dp</item>
+        <item name="android:paddingLeft">0dp</item>
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:paddingBottom">0dp</item>
+        <item name="android:drawableRight">@null</item>
+        <item name="android:drawablePadding">0dp</item>
+        <item name="android:textColor">#000</item>
+        <item name="android:textSize">12dp</item>
+        <item name="android:text">去看看</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:gravity">center</item>
+        <!--<item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginRight">24dp</item>
+        <item name="android:paddingLeft">0dp</item>
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:paddingBottom">0dp</item>
+        <item name="android:drawableRight">@null</item>
+        <item name="android:drawablePadding">0dp</item>
+        <item name="android:includeFontPadding">true</item>
+        <item name="android:background">@drawable/selector_accept_seating</item>-->
+    </style>
+</resources>

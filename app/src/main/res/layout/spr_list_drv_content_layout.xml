@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/spr_list_scrollView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/spr_list_drv_content_head_textView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/test1"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="沿路乘客自动匹配中..."
+            android:textColor="#212E33"
+            app:layout_constraintDimensionRatio="h,10:21"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/spr_list_drv_content_sub_head_textView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/test1"
+            android:includeFontPadding="false"
+            android:lineSpacingMultiplier=".8"
+            android:text="中中中中中中中中中中中中中中中中中中中中中中中中"
+            android:textColor="#949FA5"
+            android:textSize="22dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spr_list_drv_content_head_textView" />
+
+        <TextView
+            android:id="@+id/spr_list_drv_content_accept_seating_title_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="接受拼座"
+            android:textColor="#212E33"
+            android:textSize="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spr_list_drv_content_sub_head_textView" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/spr_list_drv_content_accept_seating_switchCompat"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:background="#0FF"
+            android:checked="true"
+            android:thumb="@drawable/selector_accept_seating"
+            app:layout_constraintBottom_toBottomOf="@+id/spr_list_drv_content_accept_seating_title_textView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spr_list_drv_content_sub_head_textView"
+            app:layout_constraintTop_toTopOf="@+id/spr_list_drv_content_accept_seating_title_textView"
+            app:track="@drawable/selector_accept_seating"
+            app:trackTint="@android:color/transparent" />
+
+        <LinearLayout
+            android:id="@+id/spr_list_drv_content_msg_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="13dp"
+            android:paddingTop="13dp"
+            android:paddingRight="12dp"
+            android:paddingBottom="13dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spr_list_drv_content_accept_seating_title_textView">
+
+            <com.example.myapplication.ShadowLayout
+                android:id="@+id/spr_detail_drv_by_way_button_shadow_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="#0FF"
+                    android:gravity="center"
+                    android:text="1234567890"
+                    android:textColor="#000" />
+
+            </com.example.myapplication.ShadowLayout>
+
+            <TextView
+                android:id="@+id/spr_list_drv_content_not_read_msg_textView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:drawableLeft="@drawable/im_msg_icon"
+                android:drawablePadding="11dp"
+                android:gravity="center_vertical"
+                android:text="你有3条未读消息"
+                android:textColor="#1D3947"
+                android:textSize="13dp" />
+
+            <TextView
+                android:id="@+id/spr_list_drv_content_msg_check_it_out_now_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/gray_right_arrow_icon"
+                android:drawablePadding="8dp"
+                android:gravity="center_vertical"
+                android:text="立即查看"
+                android:textColor="#1D3947"
+                android:textSize="13dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/spr_list_drv_content_line_view"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="20dp"
+            android:background="#ECEDF0"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spr_list_drv_content_msg_layout" />
+
+        <RelativeLayout
+            android:id="@+id/spr_list_drv_content_selection_of_rides_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/spr_list_drv_selection_of_rides_bg"
+            android:paddingLeft="16dp"
+            android:paddingTop="13dp"
+            android:paddingRight="12dp"
+            android:paddingBottom="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spr_list_drv_content_line_view">
+
+            <TextView
+                android:id="@+id/spr_list_drv_content_selection_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_toLeftOf="@+id/spr_list_drv_content_go_and_see_textView"
+                android:drawableLeft="@drawable/selection_icon"
+                android:drawablePadding="6dp"
+                android:gravity="center_vertical"
+                android:text="精选顺风车"
+                android:textColor="#212E33"
+                android:textSize="14dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/spr_list_drv_content_selection_intro_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/spr_list_drv_content_selection_textView"
+                android:layout_alignParentLeft="true"
+                android:layout_marginTop="5dp"
+                android:layout_toLeftOf="@+id/spr_list_drv_content_go_and_see_textView"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="超过20个顺路乘客，路线灵活收益高超过20个顺路乘客，路线灵活收益高超过20个顺路乘客，路线灵活收益高"
+                android:textColor="#0ABD8D"
+                android:textSize="12dp" />
+
+            <TextView
+                android:id="@+id/spr_list_drv_content_go_and_see_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="16dp"
+                android:drawableRight="@drawable/gray_right_arrow_icon"
+                android:drawablePadding="8dp"
+                android:gravity="center_vertical"
+                android:text="去看看"
+                android:textColor="#1D3947"
+                android:textSize="13dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_go_open2"
+                style="@style/sprPsgNotificationGoOpenUIStyle"
+                android:layout_below="@id/spr_list_drv_content_selection_intro_textView" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/spr_list_drv_content_more_action_title_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:paddingBottom="20dp"
+            android:text="更多操作"
+            android:textColor="#212E33"
+            android:textSize="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spr_list_drv_content_selection_of_rides_layout" />
+
+        <TextView
+            android:id="@+id/spr_list_drv_content_modify_the_itinerary_textView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="#E3CF57"
+            android:drawableTop="@drawable/modify_the_itinerary_icon"
+            android:drawablePadding="8dp"
+            android:gravity="center"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            android:text="开始"
+            android:textColor="#4A555B"
+            android:textSize="12dp"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/spr_list_drv_content_switch_routes_textView"
+            app:layout_constraintTop_toBottomOf="@+id/spr_list_drv_content_more_action_title_textView" />
+
+        <TextView
+            android:id="@+id/spr_list_drv_content_switch_routes_textView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="#FFD700"
+            android:drawableTop="@drawable/switch_routes_icon"
+            android:drawablePadding="8dp"
+            android:gravity="center"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            android:text="暂停"
+            android:textColor="#4A555B"
+            android:textSize="12dp"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintLeft_toRightOf="@+id/spr_list_drv_content_modify_the_itinerary_textView"
+            app:layout_constraintRight_toLeftOf="@+id/spr_list_drv_content_favorite_routes_textView"
+            app:layout_constraintTop_toBottomOf="@+id/spr_list_drv_content_more_action_title_textView" />
+
+        <TextView
+            android:id="@+id/spr_list_drv_content_favorite_routes_textView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="#FF6100"
+            android:drawableTop="@drawable/favorite_routes_icon"
+            android:drawablePadding="8dp"
+            android:gravity="center"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            android:text="收藏路线"
+            android:textColor="#4A555B"
+            android:textSize="12dp"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintLeft_toRightOf="@+id/spr_list_drv_content_switch_routes_textView"
+            app:layout_constraintRight_toLeftOf="@+id/spr_list_drv_content_cancel_the_trip_textView"
+            app:layout_constraintTop_toBottomOf="@+id/spr_list_drv_content_more_action_title_textView" />
+
+        <TextView
+            android:id="@+id/spr_list_drv_content_cancel_the_trip_textView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="#A39480"
+            android:drawableTop="@drawable/cancel_the_trip_icon"
+            android:drawablePadding="8dp"
+            android:gravity="center"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            android:text="取消行程"
+            android:textColor="#4A555B"
+            android:textSize="12dp"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintLeft_toRightOf="@+id/spr_list_drv_content_favorite_routes_textView"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spr_list_drv_content_more_action_title_textView" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/spr_list_recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spr_list_drv_content_modify_the_itinerary_textView" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
