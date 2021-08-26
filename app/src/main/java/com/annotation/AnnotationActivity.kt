@@ -14,12 +14,16 @@ class AnnotationActivity : AppCompatActivity() {
     @PersonAnnotation(name = "小明", age = 15)
     private lateinit var mStudent: Student
 
+    @PersonAnnotation(name = "小丽", age = 17)
+    private lateinit var mStudentJ: StudentJ
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_annotation)
         findViewById<View>(R.id.annotation_btn).setOnClickListener {
             AnnotationHelper.inject(this)
             Log.i(TAG, "my name is ${mStudent.name}, age is ${mStudent.age}")
+            Log.i(TAG, "my name is ${mStudentJ.name}, age is ${mStudentJ.age}")
         }
     }
 

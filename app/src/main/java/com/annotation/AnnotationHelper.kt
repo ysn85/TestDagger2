@@ -15,10 +15,14 @@ object AnnotationHelper {
                     value.isAccessible = true
                     when (value.name) {
                         "name" -> {
-                            value.set(obj, personAnnotation.name)
+                            if ("java.lang.String" == value.type.name) {
+                                value.set(obj, personAnnotation.name)
+                            }
                         }
                         "age" -> {
-                            value.set(obj, personAnnotation.age)
+                            if ("int" == value.type.name) {
+                                value.set(obj, personAnnotation.age)
+                            }
                         }
                     }
                 }
