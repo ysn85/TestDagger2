@@ -1,6 +1,6 @@
-package com.example.myapplication
+package com.annotation
 
-object AnnotationMgr {
+object AnnotationHelper {
     fun inject(any: Any) {
         val clazz = any::class.java
         val fields = clazz.declaredFields

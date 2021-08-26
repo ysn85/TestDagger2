@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.annotation
 
 @Target(AnnotationTarget.FIELD)
 @Retention(AnnotationRetention.RUNTIME)

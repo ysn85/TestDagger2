@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.annotation
 
 class Student {
     var name: String? = null
