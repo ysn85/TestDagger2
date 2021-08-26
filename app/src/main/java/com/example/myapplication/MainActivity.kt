@@ -1,9 +1,7 @@
 package com.example.myapplication
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -11,9 +9,18 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ScrollView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.CoroutineStart
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper
 
 class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
@@ -30,12 +37,6 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        AnnotationMgr.injectStudentProp(this)
-
-        val len = str!!.length
-
-        Log.i(TAG, "student pro is {${student.name}}, {${student.age}}")
-
         setContentView(R.layout.spr_list_drv_content_layout)
 
         val scrollView = findViewById<ScrollView>(R.id.spr_list_scrollView)
@@ -90,15 +91,18 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
 //                } else {
 //
 //                }
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-                    goOpenTextView?.setTextAppearance(R.style.sprPsgNotificationGoOpenUIStyle)
-                }
-                val context = it.context
-                val intent = Intent(context, TestRulerActivity::class.java)
-//                if (context !is Activity) {
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                AnnotationMgr.inject(this)
+                Log.i(TAG, "student is {${student.name}}, {${student.age}}")
+
+//                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+//                    goOpenTextView?.setTextAppearance(R.style.sprPsgNotificationGoOpenUIStyle)
 //                }
-                context.startActivity(intent)
+//                val context = it.context
+//                val intent = Intent(context, TestRulerActivity::class.java)
+////                if (context !is Activity) {
+//                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+////                }
+//                context.startActivity(intent)
             }
         findViewById<View>(R.id.spr_list_drv_content_switch_routes_textView)
             .setOnClickListener {

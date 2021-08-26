@@ -1,20 +1,26 @@
 package com.example.myapplication
 
 object AnnotationMgr {
-    fun injectStudentProp(any: Any) {
+    fun inject(any: Any) {
         val clazz = any::class.java
         val fields = clazz.declaredFields
-        for (field in fields) {
-            if (field.isAnnotationPresent(PersonAnnotation::class.java)) {
-                val personAnnotation = field.getAnnotation(PersonAnnotation::class.java)
-                if (field.type == Student::class.java) {
-                    field.isAccessible = true
-                    val student = Student().apply {
-                        this.age = personAnnotation.age
-                        this.name = personAnnotation.name
+        fields.forEach {
+            if (it.isAnnotationPresent(PersonAnnotation::class.java)) {
+                val personAnnotation = it.getAnnotation(PersonAnnotation::class.java)
+                it.isAccessible = true
+                val obj = it.type.getConstructor().newInstance()
+                obj.javaClass.declaredFields.forEach { value ->
+                    value.isAccessible = true
+                    when (value.name) {
+                        "name" -> {
+                            value.set(obj, personAnnotation.name)
+                        }
+                        "age" -> {
+                            value.set(obj, personAnnotation.age)
+                        }
                     }
-                    field.set(any, student)
                 }
+                it.set(any, obj)
             }
         }
     }
