@@ -11,9 +11,11 @@ import com.example.myapplication.R
  * @since 2021-08-25
  */
 class AnnotationActivity : AppCompatActivity() {
+    @TestAnnotationJ
     @PersonAnnotation(name = "小明", age = 15)
     private lateinit var mStudent: Student
 
+    @TestAnnotationJ
     @PersonAnnotation(name = "小丽", age = 17)
     private lateinit var mStudentJ: StudentJ
 
