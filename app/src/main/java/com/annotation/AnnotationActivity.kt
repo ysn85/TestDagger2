@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplication.R
 
 /**
- * @author Yang
+ * @author Lee
  * @since 2021-08-25
  */
 class AnnotationActivity : AppCompatActivity() {
@@ -26,15 +26,8 @@ class AnnotationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_annotation)
-
         AnnotationHelper.inject(this)
         AnnotationHelper.bind(this)
-
-        findViewById<View>(R.id.annotation_btn).setOnClickListener {
-            Log.i(TAG, "my name is ${mStudent.name}, age is ${mStudent.age}")
-            Log.i(TAG, "my name is ${mStudentJ.name}, age is ${mStudentJ.age}")
-            Log.i(TAG, "tv content is ${mAnnotationTv?.text}")
-        }
     }
 
     companion object {
@@ -42,9 +35,14 @@ class AnnotationActivity : AppCompatActivity() {
     }
 
     @TestOnClick(R.id.annotation_tv)
-    fun onTxtClick(view: View) {
+    private fun onTxtClick(view: View) {
+        Log.i(TAG, "tv is click! ${(view as TextView).text}")
+    }
+
+    @TestOnClick(R.id.annotation_btn)
+    private fun onBtnClick(view: View) {
         Log.i(TAG, "my name is ${mStudent.name}, age is ${mStudent.age}")
         Log.i(TAG, "my name is ${mStudentJ.name}, age is ${mStudentJ.age}")
-        Log.i(TAG, "tv is click! ${(view as TextView).text}")
+        Log.i(TAG, "tv content is ${mAnnotationTv?.text}")
     }
 }
