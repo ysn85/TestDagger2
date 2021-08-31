@@ -46,10 +46,22 @@ object AnnotationHelper {
             // 检查当前元素是否被指定注解修饰
             if (it.isAnnotationPresent(TestBindView::class.java)) {
                 // 查找指定注解
-                val personAnnotation = it.getAnnotation(TestBindView::class.java)
+                val annotation = it.getAnnotation(TestBindView::class.java)
                 it.isAccessible = true
-                val obj = sourceView.findViewById<View>(personAnnotation.value)
+                val obj = sourceView.findViewById<View>(annotation.value)
                 it.set(activity, obj)
+            }
+        }
+
+        val methods = clazz.declaredMethods
+        methods.forEach { method ->
+            if (method.isAnnotationPresent(TestOnClick::class.java)) {
+                val annotation = method.getAnnotation(TestOnClick::class.java)
+                method.isAccessible = true
+                val obj = sourceView.findViewById<View>(annotation.value)
+                obj.setOnClickListener {
+                    method.invoke(activity, it)
+                }
             }
         }
     }

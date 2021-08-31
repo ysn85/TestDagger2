@@ -17,7 +17,7 @@ class AnnotationActivity : AppCompatActivity() {
     private lateinit var mStudent: Student
 
     @TestAnnotationJ
-    @PersonAnnotation(name = "小丽", age = 17)
+    @PersonAnnotation(name = "小丽", age = 16)
     private lateinit var mStudentJ: StudentJ
 
     @TestBindView(R.id.annotation_tv)
@@ -26,9 +26,11 @@ class AnnotationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_annotation)
+
+        AnnotationHelper.inject(this)
+        AnnotationHelper.bind(this)
+
         findViewById<View>(R.id.annotation_btn).setOnClickListener {
-            AnnotationHelper.inject(this)
-            AnnotationHelper.bind(this)
             Log.i(TAG, "my name is ${mStudent.name}, age is ${mStudent.age}")
             Log.i(TAG, "my name is ${mStudentJ.name}, age is ${mStudentJ.age}")
             Log.i(TAG, "tv content is ${mAnnotationTv?.text}")
@@ -37,5 +39,12 @@ class AnnotationActivity : AppCompatActivity() {
 
     companion object {
         const val TAG = "AnnotationActivity"
+    }
+
+    @TestOnClick(R.id.annotation_tv)
+    fun onTxtClick(view: View) {
+        Log.i(TAG, "my name is ${mStudent.name}, age is ${mStudent.age}")
+        Log.i(TAG, "my name is ${mStudentJ.name}, age is ${mStudentJ.age}")
+        Log.i(TAG, "tv is click! ${(view as TextView).text}")
     }
 }
