@@ -18,22 +18,22 @@ object AnnotationHelper {
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
-                obj?.javaClass?.declaredFields?.forEach { value ->
-                    value.isAccessible = true
-                    when (value.name) {
+                obj?.javaClass?.declaredFields?.forEach { field ->
+                    field.isAccessible = true
+                    when (field.name) {
                         "name" -> {
-                            if (String::class.java == value.type) {
+                            if (String::class.java == field.type) {
                                 try {
-                                    value.set(obj, personAnnotation.name)
+                                    field.set(obj, personAnnotation.name)
                                 } catch (e: Exception) {
                                     e.printStackTrace()
                                 }
                             }
                         }
                         "age" -> {
-                            if (Int::class.java == value.type) {
+                            if (Int::class.java == field.type) {
                                 try {
-                                    value.set(obj, personAnnotation.age)
+                                    field.set(obj, personAnnotation.age)
                                 } catch (e: Exception) {
                                     e.printStackTrace()
                                 }
@@ -55,17 +55,17 @@ object AnnotationHelper {
         val fields = clazz.declaredFields
         val sourceView: View = activity.window.decorView
         val viewClickArray = hashMapOf<Int, View>()
-        fields.forEach {
+        fields.forEach { field ->
             // 检查当前元素是否被指定注解修饰
-            if (it.isAnnotationPresent(TestBindView::class.java)) {
+            if (field.isAnnotationPresent(TestBindView::class.java)) {
                 // 查找指定注解
-                val annotation = it.getAnnotation(TestBindView::class.java)
-                it.isAccessible = true
+                val annotation = field.getAnnotation(TestBindView::class.java)
+                field.isAccessible = true
                 val id = annotation.value
                 val obj = sourceView.findViewById<View>(id)
                 viewClickArray[id] = obj
                 try {
-                    it.set(activity, obj)
+                    field.set(activity, obj)
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
@@ -79,9 +79,9 @@ object AnnotationHelper {
                 method.isAccessible = true
                 val id = annotation.value
                 val obj = viewClickArray[id] ?: sourceView.findViewById(id)
-                obj.setOnClickListener {
+                obj.setOnClickListener { view ->
                     try {
-                        method.invoke(activity, it)
+                        method.invoke(activity, view)
                     } catch (e: Exception) {
                         e.printStackTrace()
                     }
