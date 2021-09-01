@@ -54,13 +54,16 @@ object AnnotationHelper {
         val clazz = activity::class.java
         val fields = clazz.declaredFields
         val sourceView: View = activity.window.decorView
+        val viewClickArray = hashMapOf<Int, View>()
         fields.forEach {
             // 检查当前元素是否被指定注解修饰
             if (it.isAnnotationPresent(TestBindView::class.java)) {
                 // 查找指定注解
                 val annotation = it.getAnnotation(TestBindView::class.java)
                 it.isAccessible = true
-                val obj = sourceView.findViewById<View>(annotation.value)
+                val id = annotation.value
+                val obj = sourceView.findViewById<View>(id)
+                viewClickArray[id] = obj
                 try {
                     it.set(activity, obj)
                 } catch (e: Exception) {
@@ -74,7 +77,8 @@ object AnnotationHelper {
             if (method.isAnnotationPresent(TestOnClick::class.java)) {
                 val annotation = method.getAnnotation(TestOnClick::class.java)
                 method.isAccessible = true
-                val obj = sourceView.findViewById<View>(annotation.value)
+                val id = annotation.value
+                val obj = viewClickArray[id] ?: sourceView.findViewById(id)
                 obj.setOnClickListener {
                     try {
                         method.invoke(activity, it)
@@ -84,5 +88,6 @@ object AnnotationHelper {
                 }
             }
         }
+        viewClickArray.clear()
     }
 }
