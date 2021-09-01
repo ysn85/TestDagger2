@@ -3,6 +3,7 @@ package com.annotation
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplication.R
@@ -27,7 +28,7 @@ class AnnotationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_annotation)
         AnnotationHelper.inject(this)
-        AnnotationHelper.bind(this)
+        AnnotationHelper.bind(this, (findViewById<ViewGroup>(android.R.id.content)).getChildAt(0))
         Log.i(TAG, "mAnnotationTv content is ${mAnnotationTv?.text}")
     }
 

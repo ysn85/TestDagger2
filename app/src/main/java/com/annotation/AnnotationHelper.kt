@@ -51,9 +51,13 @@ object AnnotationHelper {
     }
 
     fun bind(activity: Activity) {
-        val clazz = activity::class.java
+        bind(activity, activity.window.decorView)
+    }
+
+    fun bind(target: Any, view: View) {
+        val clazz = target::class.java
         val fields = clazz.declaredFields
-        val sourceView: View = activity.window.decorView
+        val sourceView = view
         val viewClickArray = hashMapOf<Int, View>()
         fields.forEach { field ->
             // 检查当前元素是否被指定注解修饰
@@ -65,7 +69,7 @@ object AnnotationHelper {
                 val obj = sourceView.findViewById<View>(id)
                 viewClickArray[id] = obj
                 try {
-                    field.set(activity, obj)
+                    field.set(target, obj)
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
@@ -81,7 +85,7 @@ object AnnotationHelper {
                 val obj = viewClickArray[id] ?: sourceView.findViewById(id)
                 obj.setOnClickListener { view ->
                     try {
-                        method.invoke(activity, view)
+                        method.invoke(target, view)
                     } catch (e: Exception) {
                         e.printStackTrace()
                     }
