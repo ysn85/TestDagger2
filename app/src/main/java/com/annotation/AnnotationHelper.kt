@@ -60,7 +60,11 @@ object AnnotationHelper {
                 method.isAccessible = true
                 val obj = sourceView.findViewById<View>(annotation.value)
                 obj.setOnClickListener {
-                    method.invoke(activity, it)
+                    try {
+                        method.invoke(activity, it)
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
                 }
             }
         }
