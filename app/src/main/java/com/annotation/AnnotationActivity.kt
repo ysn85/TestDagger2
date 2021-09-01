@@ -36,13 +36,21 @@ class AnnotationActivity : AppCompatActivity() {
 
     @TestOnClick(R.id.annotation_tv)
     private fun onTxtClick(view: View) {
-        Log.i(TAG, "tv is click! ${(view as TextView).text}")
+        if (view is TextView) {
+            Log.i(TAG, "onTxtClick is click! ${view.text}")
+        } else {
+            Log.i(TAG, "onTxtClick is click!")
+        }
     }
 
     @TestOnClick(R.id.annotation_btn)
     private fun onBtnClick(view: View) {
         Log.i(TAG, "my name is ${mStudent.name}, age is ${mStudent.age}")
         Log.i(TAG, "my name is ${mStudentJ.name}, age is ${mStudentJ.age}")
-        Log.i(TAG, "tv content is ${mAnnotationTv?.text}")
+        if (view is TextView) {
+            Log.i(TAG, "tv content is ${view.text}")
+        } else {
+            Log.i(TAG, "onBtnClick is click!")
+        }
     }
 }
