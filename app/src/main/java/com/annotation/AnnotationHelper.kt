@@ -23,17 +23,29 @@ object AnnotationHelper {
                     when (value.name) {
                         "name" -> {
                             if (String::class.java == value.type) {
-                                value.set(obj, personAnnotation.name)
+                                try {
+                                    value.set(obj, personAnnotation.name)
+                                } catch (e: Exception) {
+                                    e.printStackTrace()
+                                }
                             }
                         }
                         "age" -> {
                             if (Int::class.java == value.type) {
-                                value.set(obj, personAnnotation.age)
+                                try {
+                                    value.set(obj, personAnnotation.age)
+                                } catch (e: Exception) {
+                                    e.printStackTrace()
+                                }
                             }
                         }
                     }
                 }
-                it.set(any, obj)
+                try {
+                    it.set(any, obj)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
             }
         }
     }
@@ -49,7 +61,11 @@ object AnnotationHelper {
                 val annotation = it.getAnnotation(TestBindView::class.java)
                 it.isAccessible = true
                 val obj = sourceView.findViewById<View>(annotation.value)
-                it.set(activity, obj)
+                try {
+                    it.set(activity, obj)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
             }
         }
 
