@@ -28,6 +28,7 @@ class AnnotationActivity : AppCompatActivity() {
         setContentView(R.layout.activity_annotation)
         AnnotationHelper.inject(this)
         AnnotationHelper.bind(this)
+        Log.i(TAG, "mAnnotationTv content is ${mAnnotationTv?.text}")
     }
 
     companion object {
