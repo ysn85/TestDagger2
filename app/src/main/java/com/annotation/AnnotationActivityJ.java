@@ -15,6 +15,8 @@ import java.util.ArrayList;
 public class AnnotationActivityJ extends AppCompatActivity {
     private static final String TAG = "AnnotationActivityJ";
 
+    @BtsBindView(R.id.annotation_btn)
+    private TextView mBtn;
     @BtsBindViews({R.id.annotation_array_btn, R.id.annotation_array_btn1})
     private ArrayList<View> mListUIs = null;
 
@@ -31,6 +33,7 @@ public class AnnotationActivityJ extends AppCompatActivity {
                 }
             });
         }*/
+        Log.i(TAG, "mBtn content is " + mBtn.getText());
         for (int i = 0, count = mListUIs.size(); i < count; i++) {
             View value = mListUIs.get(i);
             if (value instanceof TextView) {
