@@ -12,7 +12,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.annotation.AnnotationHelper
+import com.annotation.BtsBindHelper
 import com.annotation.PersonAnnotation
 import com.annotation.Student
 import kotlinx.coroutines.CoroutineScope
@@ -94,7 +94,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
 //                } else {
 //
 //                }
-                AnnotationHelper.inject(this)
+                BtsBindHelper.inject(this)
                 Log.i(TAG, "student is {${student.name}}, {${student.age}}")
 
 //                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {

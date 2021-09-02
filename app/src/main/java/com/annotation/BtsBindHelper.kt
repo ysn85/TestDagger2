@@ -3,7 +3,7 @@ package com.annotation
 import android.app.Activity
 import android.view.View
 
-object AnnotationHelper {
+object BtsBindHelper {
     fun inject(any: Any) {
         val clazz = any::class.java
         val fields = clazz.declaredFields

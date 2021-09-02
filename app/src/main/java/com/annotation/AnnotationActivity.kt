@@ -1,5 +1,6 @@
 package com.annotation
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -37,8 +38,8 @@ class AnnotationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_annotation)
-        AnnotationHelper.inject(this)
-        AnnotationHelper.bind(this/*, (findViewById<ViewGroup>(android.R.id.content)).getChildAt(0)*/)
+        BtsBindHelper.inject(this)
+        BtsBindHelper.bind(this/*, (findViewById<ViewGroup>(android.R.id.content)).getChildAt(0)*/)
 
         Log.i(TAG, "mAnnotationTv content is ${mAnnotationTv?.text}")
         Log.i(TAG, "my name is ${mStudent.name}, age is ${mStudent.age}")
@@ -59,12 +60,18 @@ class AnnotationActivity : AppCompatActivity() {
         const val TAG = "AnnotationActivity"
     }
 
-    @BtsOnClick([R.id.annotation_btn, R.id.annotation_btn1])
+    @BtsOnClick([R.id.annotation_btn, R.id.annotation_btn1, R.id.annotation_next_btn])
     private fun onBtnClick(view: View) {
         if (view is TextView) {
             Log.i(TAG, "tv content is ${view.text}")
         } else {
             Log.i(TAG, "onBtnClick is click!")
+        }
+        when (view.id) {
+            R.id.annotation_next_btn ->
+                startActivity(Intent(this, AnnotationActivityJ::class.java))
+            else -> {
+            }
         }
     }
 
@@ -88,7 +95,7 @@ class AnnotationActivity : AppCompatActivity() {
             private var mDemoItemTv: TextView? = null
 
             init {
-                AnnotationHelper.bind(this, itemView)
+                BtsBindHelper.bind(this, itemView)
             }
 
             fun updateData(value: String) {
