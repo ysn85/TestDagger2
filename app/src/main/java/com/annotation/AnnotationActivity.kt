@@ -38,7 +38,7 @@ class AnnotationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_annotation)
         AnnotationHelper.inject(this)
-        AnnotationHelper.bind(this, (findViewById<ViewGroup>(android.R.id.content)).getChildAt(0))
+        AnnotationHelper.bind(this/*, (findViewById<ViewGroup>(android.R.id.content)).getChildAt(0)*/)
 
         Log.i(TAG, "mAnnotationTv content is ${mAnnotationTv?.text}")
         Log.i(TAG, "my name is ${mStudent.name}, age is ${mStudent.age}")
