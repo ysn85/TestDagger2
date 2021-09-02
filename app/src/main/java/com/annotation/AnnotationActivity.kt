@@ -39,7 +39,10 @@ class AnnotationActivity : AppCompatActivity() {
         setContentView(R.layout.activity_annotation)
         AnnotationHelper.inject(this)
         AnnotationHelper.bind(this, (findViewById<ViewGroup>(android.R.id.content)).getChildAt(0))
+
         Log.i(TAG, "mAnnotationTv content is ${mAnnotationTv?.text}")
+        Log.i(TAG, "my name is ${mStudent.name}, age is ${mStudent.age}")
+        Log.i(TAG, "my name is ${mStudentJ.name}, age is ${mStudentJ.age}")
 
         mAnnotationRv?.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
@@ -56,19 +59,8 @@ class AnnotationActivity : AppCompatActivity() {
         const val TAG = "AnnotationActivity"
     }
 
-    @BtsOnClick([R.id.annotation_btn1])
-    private fun onTxtClick(view: View) {
-        if (view is TextView) {
-            Log.i(TAG, "onTxtClick is click! ${view.text}")
-        } else {
-            Log.i(TAG, "onTxtClick is click!")
-        }
-    }
-
-    @BtsOnClick([R.id.annotation_btn])
+    @BtsOnClick([R.id.annotation_btn, R.id.annotation_btn1])
     private fun onBtnClick(view: View) {
-        Log.i(TAG, "my name is ${mStudent.name}, age is ${mStudent.age}")
-        Log.i(TAG, "my name is ${mStudentJ.name}, age is ${mStudentJ.age}")
         if (view is TextView) {
             Log.i(TAG, "tv content is ${view.text}")
         } else {
