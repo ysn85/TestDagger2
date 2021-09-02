@@ -2,10 +2,14 @@ package com.annotation
 
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 
 /**
@@ -24,12 +28,20 @@ class AnnotationActivity : AppCompatActivity() {
     @TestBindView(R.id.annotation_tv)
     var mAnnotationTv: TextView? = null
 
+    @TestBindView(R.id.annotation_rv)
+    var mAnnotationRv: RecyclerView? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_annotation)
         AnnotationHelper.inject(this)
         AnnotationHelper.bind(this, (findViewById<ViewGroup>(android.R.id.content)).getChildAt(0))
         Log.i(TAG, "mAnnotationTv content is ${mAnnotationTv?.text}")
+
+        mAnnotationRv?.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        mAnnotationRv?.adapter = MyAdapter()
+
     }
 
     companion object {
@@ -53,6 +65,45 @@ class AnnotationActivity : AppCompatActivity() {
             Log.i(TAG, "tv content is ${view.text}")
         } else {
             Log.i(TAG, "onBtnClick is click!")
+        }
+    }
+
+    class MyAdapter : RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
+            val view = LayoutInflater.from(parent.context).inflate(R.layout.list_demo_item, null)
+            return MyViewHolder(view)
+        }
+
+        override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+            holder.updateData("$position test item")
+        }
+
+        override fun getItemCount(): Int {
+            return 100
+        }
+
+        class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+            @TestBindView(R.id.list_demo_item_tv)
+            var mDemoItemTv: TextView? = null
+
+            init {
+                AnnotationHelper.bind(this, itemView)
+            }
+
+            fun updateData(value: String) {
+                mDemoItemTv?.text = value
+            }
+
+            @TestOnClick(R.id.list_demo_item_tv)
+            private fun onItemClick(view: View) {
+                if (view is TextView) {
+                    Toast.makeText(
+                        view.context, "onItemClick item ${view.text}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
         }
     }
 }
