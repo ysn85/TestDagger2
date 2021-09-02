@@ -15,7 +15,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/annotation_tv"
+        android:id="@+id/annotation_btn1"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:layout_marginLeft="16dp"
@@ -23,6 +23,28 @@
         android:paddingRight="16dp"
         android:text="Hello"
         app:layout_constraintLeft_toRightOf="@id/annotation_btn"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/annotation_array_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginLeft="16dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:text="Array1"
+        app:layout_constraintLeft_toRightOf="@id/annotation_btn1"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/annotation_array_btn1"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginLeft="16dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:text="Array2"
+        app:layout_constraintLeft_toRightOf="@id/annotation_array_btn"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView

@@ -61,9 +61,9 @@ object AnnotationHelper {
         val viewClickArray = hashMapOf<Int, View>()
         fields.forEach { field ->
             // 检查当前元素是否被指定注解修饰
-            if (field.isAnnotationPresent(TestBindView::class.java)) {
+            if (field.isAnnotationPresent(BtsBindView::class.java)) {
                 // 查找指定注解
-                val annotation = field.getAnnotation(TestBindView::class.java)
+                val annotation = field.getAnnotation(BtsBindView::class.java)
                 field.isAccessible = true
                 val id = annotation.value
                 val obj = sourceView.findViewById<View>(id)
@@ -73,21 +73,39 @@ object AnnotationHelper {
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
+            } else if (field.isAnnotationPresent(BtsBindViews::class.java)) {
+                // 查找指定注解
+                val annotation = field.getAnnotation(BtsBindViews::class.java)
+                field.isAccessible = true
+                val ids = annotation.value
+                val views = arrayListOf<View>()
+                ids.forEachIndexed { _, value ->
+                    val obj = sourceView.findViewById<View>(value)
+                    views.add(obj)
+                    viewClickArray[value] = obj
+                }
+                try {
+                    field.set(target, views)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
             }
         }
 
         val methods = clazz.declaredMethods
         methods.forEach { method ->
-            if (method.isAnnotationPresent(TestOnClick::class.java)) {
-                val annotation = method.getAnnotation(TestOnClick::class.java)
+            if (method.isAnnotationPresent(BtsOnClick::class.java)) {
+                val annotation = method.getAnnotation(BtsOnClick::class.java)
                 method.isAccessible = true
-                val id = annotation.value
-                val obj = viewClickArray[id] ?: sourceView.findViewById(id)
-                obj.setOnClickListener { view ->
-                    try {
-                        method.invoke(target, view)
-                    } catch (e: Exception) {
-                        e.printStackTrace()
+                val ids = annotation.value
+                ids.forEachIndexed { _, value ->
+                    val obj = viewClickArray[value] ?: sourceView.findViewById(value)
+                    obj.setOnClickListener { view ->
+                        try {
+                            method.invoke(target, view)
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                        }
                     }
                 }
             }

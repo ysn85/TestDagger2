@@ -3,6 +3,6 @@ package com.annotation
 import androidx.annotation.IdRes
 
 @MustBeDocumented
+@Target(AnnotationTarget.FUNCTION)
 @Retention(AnnotationRetention.RUNTIME)
-@Target(AnnotationTarget.FIELD)
-annotation class TestBindView(@IdRes val value: Int)
+annotation class BtsOnClick(@IdRes val value: IntArray)

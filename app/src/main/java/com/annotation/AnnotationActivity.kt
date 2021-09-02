@@ -25,11 +25,14 @@ class AnnotationActivity : AppCompatActivity() {
     @PersonAnnotation(name = "小丽", age = 16)
     private lateinit var mStudentJ: StudentJ
 
-    @TestBindView(R.id.annotation_tv)
-    var mAnnotationTv: TextView? = null
+    @BtsBindView(R.id.annotation_btn1)
+    private var mAnnotationTv: TextView? = null
 
-    @TestBindView(R.id.annotation_rv)
-    var mAnnotationRv: RecyclerView? = null
+    @BtsBindView(R.id.annotation_rv)
+    private var mAnnotationRv: RecyclerView? = null
+
+    @BtsBindViews([R.id.annotation_array_btn, R.id.annotation_array_btn1])
+    val mListUIs: ArrayList<View>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,13 +45,18 @@ class AnnotationActivity : AppCompatActivity() {
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         mAnnotationRv?.adapter = MyAdapter()
 
+        mListUIs?.forEach {
+            if (it is TextView) {
+                Log.i(TAG, "list content is ${it.text}")
+            }
+        }
     }
 
     companion object {
         const val TAG = "AnnotationActivity"
     }
 
-    @TestOnClick(R.id.annotation_tv)
+    @BtsOnClick([R.id.annotation_btn1])
     private fun onTxtClick(view: View) {
         if (view is TextView) {
             Log.i(TAG, "onTxtClick is click! ${view.text}")
@@ -57,7 +65,7 @@ class AnnotationActivity : AppCompatActivity() {
         }
     }
 
-    @TestOnClick(R.id.annotation_btn)
+    @BtsOnClick([R.id.annotation_btn])
     private fun onBtnClick(view: View) {
         Log.i(TAG, "my name is ${mStudent.name}, age is ${mStudent.age}")
         Log.i(TAG, "my name is ${mStudentJ.name}, age is ${mStudentJ.age}")
@@ -84,8 +92,8 @@ class AnnotationActivity : AppCompatActivity() {
         }
 
         class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-            @TestBindView(R.id.list_demo_item_tv)
-            var mDemoItemTv: TextView? = null
+            @BtsBindView(R.id.list_demo_item_tv)
+            private var mDemoItemTv: TextView? = null
 
             init {
                 AnnotationHelper.bind(this, itemView)
@@ -95,7 +103,7 @@ class AnnotationActivity : AppCompatActivity() {
                 mDemoItemTv?.text = value
             }
 
-            @TestOnClick(R.id.list_demo_item_tv)
+            @BtsOnClick([R.id.list_demo_item_tv])
             private fun onItemClick(view: View) {
                 if (view is TextView) {
                     Toast.makeText(
