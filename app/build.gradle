@@ -22,7 +22,9 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
+            zipAlignEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -46,7 +48,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui-ktx:2.2.2'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espressgito:espresso-core:3.2.0'
+//    androidTestImplementation 'androidx.test.espressgito:espresso-core:3.2.0'
 
     implementation 'me.everything:overscroll-decor-android:1.0.4'
 
