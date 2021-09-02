@@ -32,7 +32,7 @@ class AnnotationActivity : AppCompatActivity() {
     private var mAnnotationRv: RecyclerView? = null
 
     @BtsBindViews([R.id.annotation_array_btn, R.id.annotation_array_btn1])
-    val mListUIs: ArrayList<View>? = null
+    val mListUIs: MutableList<View>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

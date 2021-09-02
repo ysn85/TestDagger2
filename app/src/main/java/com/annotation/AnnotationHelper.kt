@@ -78,7 +78,11 @@ object AnnotationHelper {
                 val annotation = field.getAnnotation(BtsBindViews::class.java)
                 field.isAccessible = true
                 val ids = annotation.value
-                val views = arrayListOf<View>()
+                val views = mutableListOf<View>() /*when (field.type) {
+                    ArrayList::class.java -> arrayListOf<View>()
+                    else -> mutableListOf()
+                }*/
+
                 ids.forEachIndexed { _, value ->
                     val obj = sourceView.findViewById<View>(value)
                     views.add(obj)
