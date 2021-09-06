@@ -26,7 +26,7 @@ class TestLiveDataActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_vm)
         BtsBindHelper.bind(this)
-        mVM?.getData()?.observe(this, { value ->
+        mVM.getData().observe(this, { value ->
             mNotifyBtn?.text = value
         })
     }
@@ -36,7 +36,7 @@ class TestLiveDataActivity : AppCompatActivity() {
         when (view.id) {
             R.id.vm_notify_btn ->
                 if (view is TextView) {
-                    mVM?.fetchData()
+                    mVM.fetchData()
                 }
             R.id.vm_finish_btn ->
                 finish()
