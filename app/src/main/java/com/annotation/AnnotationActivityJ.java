@@ -33,8 +33,10 @@ public class AnnotationActivityJ extends AppCompatActivity {
                 }
             });
         }*/
-        Log.i(TAG, "mBtn content is " + mBtn.getText());
-        for (int i = 0, count = mListUIs.size(); i < count; i++) {
+        if (mBtn != null) {
+            Log.i(TAG, "mBtn content is " + mBtn.getText());
+        }
+        for (int i = 0, count = mListUIs == null ? 0 : mListUIs.size(); i < count; i++) {
             View value = mListUIs.get(i);
             if (value instanceof TextView) {
                 Log.i(TAG, "list content is " + ((TextView) value).getText());
@@ -54,6 +56,10 @@ public class AnnotationActivityJ extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+        if (mListUIs != null) {
+            mListUIs.clear();
+            mListUIs = null;
+        }
         super.onDestroy();
         Log.i(TAG, "onDestroy call");
     }

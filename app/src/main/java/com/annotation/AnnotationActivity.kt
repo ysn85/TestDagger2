@@ -54,6 +54,21 @@ class AnnotationActivity : AppCompatActivity() {
                 Log.i(TAG, "list content is ${it.text}")
             }
         }
+        val hashSet = hashSetOf<TestLateInit>()
+        val test1 = TestLateInit()
+        test1.age = 10
+        test1.height = 10
+
+        val test2 = TestLateInit()
+        test2.age = 100
+        test2.height = 100
+
+        hashSet.add(test1)
+        hashSet.add(test2)
+        Log.i(TAG, "hashSet start size ${hashSet.size}")
+        test1.age = 8
+        hashSet.remove(test1)
+        Log.i(TAG, "hashSet end size ${hashSet.size}")
     }
 
     companion object {
@@ -111,6 +126,19 @@ class AnnotationActivity : AppCompatActivity() {
                     ).show()
                 }
             }
+        }
+    }
+
+    class TestLateInit() {
+        var age: Int = 0
+        var height: Int = 0
+
+        override fun hashCode(): Int {
+            val magic = 31
+            var result = 1
+            result = magic * result + age
+            result = magic * result + height
+            return result
         }
     }
 }

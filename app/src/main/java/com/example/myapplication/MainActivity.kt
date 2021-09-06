@@ -258,8 +258,6 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
     }
 
     class Main private constructor() {
-        lateinit var testLateInit: TestLateInit
-
         companion object {
             @JvmStatic
             fun getInstances(): Main {
@@ -272,7 +270,8 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
         }
     }
 
-    class TestLateInit {
-
+    inline fun testInline(func: (age: Int) -> Unit, /*noinline*/ funcNo: (name: String) -> Unit) {
+        func(10)
+        funcNo("test")
     }
 }
