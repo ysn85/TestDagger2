@@ -16,7 +16,7 @@ class TestDataSource : DataSource {
 
     override suspend fun fetchData() {
         withContext(Dispatchers.Main) {
-            mNameData.value = "Hello LiveData"
+            mNameData.value = "Loading..."
             mNameData.value = fetchRealData()
         }
     }
