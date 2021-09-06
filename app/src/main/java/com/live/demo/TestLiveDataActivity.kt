@@ -31,10 +31,15 @@ class TestLiveDataActivity : AppCompatActivity() {
         })
     }
 
-    @BtsOnClick([R.id.vm_notify_btn])
+    @BtsOnClick([R.id.vm_notify_btn, R.id.vm_finish_btn])
     private fun onBtnClick(view: View) {
-        if (view is TextView) {
-            mVM?.fetchData()
+        when (view.id) {
+            R.id.vm_notify_btn ->
+                if (view is TextView) {
+                    mVM?.fetchData()
+                }
+            R.id.vm_finish_btn ->
+                finish()
         }
     }
 }

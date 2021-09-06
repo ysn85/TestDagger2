@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
         <activity
-            android:name="com.live.demo.TestLiveDataActivity"
+            android:name="com.annotation.AnnotationActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.MyApplication.NoActionBar">
             <intent-filter>
@@ -21,6 +21,7 @@
             </intent-filter>
         </activity>
         <activity android:name="com.annotation.AnnotationActivityJ" />
+        <activity android:name="com.live.demo.TestLiveDataActivity" />
     </application>
 
 </manifest>

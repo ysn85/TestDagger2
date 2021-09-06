@@ -32,6 +32,10 @@ class TestViewModel(private val dataSource: DataSource) : ViewModel() {
         }
     }
 
+    override fun onCleared() {
+        super.onCleared()
+    }
+
     companion object {
         const val TAG = "TestViewModel"
     }

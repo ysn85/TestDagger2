@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
+import com.live.demo.TestLiveDataActivity
 
 /**
  * @author Lee
@@ -75,7 +76,10 @@ class AnnotationActivity : AppCompatActivity() {
         const val TAG = "AnnotationActivity"
     }
 
-    @BtsOnClick([R.id.annotation_btn, R.id.annotation_btn1, R.id.annotation_next_btn])
+    @BtsOnClick(
+        [R.id.annotation_btn, R.id.annotation_btn1,
+            R.id.annotation_next_btn, R.id.annotation_live_data_btn]
+    )
     private fun onBtnClick(view: View) {
         if (view is TextView) {
             Log.i(TAG, "tv content is ${view.text}")
@@ -85,6 +89,8 @@ class AnnotationActivity : AppCompatActivity() {
         when (view.id) {
             R.id.annotation_next_btn ->
                 startActivity(Intent(this, AnnotationActivityJ::class.java))
+            R.id.annotation_live_data_btn ->
+                startActivity(Intent(this, TestLiveDataActivity::class.java))
             else -> {
             }
         }

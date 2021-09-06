@@ -22,12 +22,14 @@ class TestDataSource : DataSource {
     }
 
     private suspend fun fetchRealData(): String = withContext(Dispatchers.IO) {
+        Log.i(TestViewModel.TAG, "fetchRealData start ")
         if (Looper.myLooper() === Looper.getMainLooper()) {
             Log.i(TestViewModel.TAG, "fetchRealData on MainThread ")
         } else {
             Log.i(TestViewModel.TAG, "fetchRealData on SubThread ")
         }
         delay(2000)
+        Log.i(TestViewModel.TAG, "fetchRealData end ")
         "Hello new Data"
     }
 }
