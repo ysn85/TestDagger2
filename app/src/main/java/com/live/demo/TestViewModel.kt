@@ -16,13 +16,17 @@ class TestViewModel(private val dataSource: DataSource) : ViewModel() {
 
     fun fetchData() {
         viewModelScope.launch {
-            if (Looper.myLooper() === Looper.getMainLooper()) {
+            if (isMainThread()) {
                 Log.i(TAG, "fetchData on MainThread ")
             } else {
                 Log.i(TAG, "fetchData on SubThread ")
             }
             dataSource.fetchData()
         }
+    }
+
+    private fun isMainThread(): Boolean {
+        return Looper.getMainLooper().thread === Thread.currentThread()
     }
 
     object LiveDataVMFactory : ViewModelProvider.Factory {

@@ -16,14 +16,14 @@ class TestLiveDataActivity : AppCompatActivity() {
         TestViewModel.LiveDataVMFactory
     }
 
+//    private val mVM = ViewModelProvider(this)
+//        .get(TestViewModel::class.java)
+
     @BtsBindView(R.id.vm_notify_btn)
     private var mNotifyBtn: TextView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        mVM = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())
-//            .get(TestViewModel::class.java)
-
         setContentView(R.layout.activity_vm)
         BtsBindHelper.bind(this)
         mVM.getData().observe(this, { value ->
