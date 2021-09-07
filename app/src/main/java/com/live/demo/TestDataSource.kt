@@ -31,6 +31,7 @@ class TestDataSource : DataSource {
         Log.i(TAG, "fetchDataFromNet start")
         // 子线程需要这样更新LiveData数据
         mNameData.postValue("Loading Net")
+        delay(2000)
         val url = URL("https://www.baidu.com/")
         var inputStream: InputStream? = null
         var bufferedReader: BufferedReader? = null
