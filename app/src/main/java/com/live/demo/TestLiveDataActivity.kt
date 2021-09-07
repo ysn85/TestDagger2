@@ -1,6 +1,7 @@
 package com.live.demo
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.activity.viewModels
@@ -41,5 +42,11 @@ class TestLiveDataActivity : AppCompatActivity() {
             R.id.vm_finish_btn ->
                 finish()
         }
+    }
+
+    override fun onDestroy() {
+        Log.i(TestViewModel.TAG, "onDestroy start")
+        super.onDestroy()
+        Log.i(TestViewModel.TAG, "onDestroy end")
     }
 }
