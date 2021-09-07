@@ -1,7 +1,9 @@
 package com.live.demo
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.live.demo.TestViewModel.Companion.TAG
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
@@ -26,6 +28,7 @@ class TestDataSource : DataSource {
     }
 
     private suspend fun fetchDataFromNet(): String = withContext(Dispatchers.IO) {
+        Log.i(TAG, "fetchDataFromNet start")
         val url = URL("https://www.baidu.com/")
         var inputStream: InputStream? = null
         var bufferedReader: BufferedReader? = null
@@ -40,8 +43,8 @@ class TestDataSource : DataSource {
                 stringBuilder.append(readLineStr).append("\n")
                 readLineStr = bufferedReader.readLine()
             }
-        } catch (ioE: IOException) {
-            ioE.printStackTrace()
+        } catch (ioe: IOException) {
+            ioe.printStackTrace()
         } finally {
             bufferedReader?.close()
             inputStream?.close()
@@ -54,6 +57,7 @@ class TestDataSource : DataSource {
     }
 
     private suspend fun fetchRealData(): String = withContext(Dispatchers.IO) {
+        Log.i(TAG, "fetchRealData start")
         delay(2000)
         "Hello new Data"
     }
