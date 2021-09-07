@@ -1,9 +1,7 @@
 package com.live.demo
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.live.demo.TestViewModel.Companion.TAG
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
@@ -42,18 +40,16 @@ class TestDataSource : DataSource {
                 stringBuilder.append(readLineStr).append("\n")
                 readLineStr = bufferedReader.readLine()
             }
-            Log.i(TAG, "fetchDataFromNet$stringBuilder")
         } catch (ioE: IOException) {
             ioE.printStackTrace()
         } finally {
             bufferedReader?.close()
             inputStream?.close()
         }
-//        delay(2000)
         if (stringBuilder.isEmpty()) {
             "Hello empty Data"
         } else {
-            stringBuilder?.substring(0, 10)
+            stringBuilder.substring(0, 10)
         }
     }
 
