@@ -22,6 +22,7 @@ class TestViewModel(private val dataSource: DataSource) : ViewModel() {
             } else {
                 Log.i(TAG, "fetchData on SubThread ")
             }
+//            BtsStringBuilder.of()
             dataSource.fetchData()
         }
     }

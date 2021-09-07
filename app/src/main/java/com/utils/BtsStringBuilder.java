@@ -1,8 +1,11 @@
 package com.utils;
 
+import android.util.Log;
+
 import java.lang.ref.SoftReference;
 
 public final class BtsStringBuilder {
+    private static final String TAG = "BtsStringBuilder";
 
     private StringBuilder mStringBuilder;
 
@@ -11,6 +14,7 @@ public final class BtsStringBuilder {
     private static final ThreadLocal<SoftReference<BtsStringBuilder>> TL_INSTANCE = new ThreadLocal<SoftReference<BtsStringBuilder>>() {
         @Override
         protected SoftReference<BtsStringBuilder> initialValue() {
+            Log.i("TestViewModel", "initialValue start");
             return new SoftReference<>(new BtsStringBuilder());
         }
     };

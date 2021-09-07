@@ -28,6 +28,7 @@ class TestDataSource : DataSource {
     }
 
     private suspend fun fetchDataFromNet(): String = withContext(Dispatchers.IO) {
+//        BtsStringBuilder.of()
         Log.i(TAG, "fetchDataFromNet start")
         // 子线程需要这样更新LiveData数据
         mNameData.postValue("Loading Net")
@@ -62,6 +63,7 @@ class TestDataSource : DataSource {
 
     private suspend fun fetchRealData(): String = withContext(Dispatchers.IO) {
         Log.i(TAG, "fetchRealData start")
+//        BtsStringBuilder.of()
         delay(2000)
         "Hello new Data"
     }

@@ -28,6 +28,13 @@ class TestLiveDataActivity : AppCompatActivity() {
 //            .get(TestViewModel::class.java)
         setContentView(R.layout.activity_vm)
         BtsBindHelper.bind(this)
+//        val btsStringBuilder = BtsStringBuilder.of()
+//        btsStringBuilder.append("test")
+//        Log.i(TestViewModel.TAG, "onCreate $btsStringBuilder")
+//        val btsStringBuilder1 = BtsStringBuilder.of()
+//        btsStringBuilder1.append("test1")
+//        Log.i(TestViewModel.TAG, "onCreate $btsStringBuilder1")
+
         mVM?.getData()?.observe(this, { value ->
             mNotifyBtn?.text = value
         })
