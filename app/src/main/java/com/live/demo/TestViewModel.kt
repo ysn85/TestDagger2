@@ -32,6 +32,7 @@ class TestViewModel(private val dataSource: DataSource) : ViewModel() {
     object LiveDataVMFactory : ViewModelProvider.Factory {
         private val mDs = TestDataSource()
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+            @Suppress("UNCHECKED_CAST")
             return TestViewModel(mDs) as T
         }
     }
