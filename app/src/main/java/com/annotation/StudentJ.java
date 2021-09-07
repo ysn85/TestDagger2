@@ -12,6 +12,7 @@ public class StudentJ {
     public String toString() {
         return "StudentJ{" +
                 "age=" + age +
-                '}';
+                "name=" + name +
+                "}";
     }
 }

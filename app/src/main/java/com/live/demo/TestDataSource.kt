@@ -52,6 +52,7 @@ class TestDataSource : DataSource {
             bufferedReader?.close()
             inputStream?.close()
         }
+        Log.i(TAG, "fetchDataFromNet end")
         if (stringBuilder.isEmpty()) {
             "Hello empty Data"
         } else {

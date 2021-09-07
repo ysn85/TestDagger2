@@ -13,4 +13,11 @@ class Student {
     fun getSuper(): Int {
         return age
     }
+
+    override fun toString(): String {
+        return "StudentJ{" +
+                "age=" + age +
+                "name=" + name +
+                "}"
+    }
 }

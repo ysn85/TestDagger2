@@ -14,20 +14,21 @@ import com.example.myapplication.R
 class TestLiveDataActivity : AppCompatActivity() {
 
     private val mVM: TestViewModel by viewModels {
-        TestViewModel.LiveDataVMFactory
+        TestViewModel.LiveDataVMFactory()
     }
 
-//    private val mVM = ViewModelProvider(this)
-//        .get(TestViewModel::class.java)
+//    private var mVM: TestViewModel? = null
 
     @BtsBindView(R.id.vm_notify_btn)
     private var mNotifyBtn: TextView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+//        mVM = ViewModelProvider(this)
+//            .get(TestViewModel::class.java)
         setContentView(R.layout.activity_vm)
         BtsBindHelper.bind(this)
-        mVM.getData().observe(this, { value ->
+        mVM?.getData()?.observe(this, { value ->
             mNotifyBtn?.text = value
         })
     }
@@ -37,7 +38,7 @@ class TestLiveDataActivity : AppCompatActivity() {
         when (view.id) {
             R.id.vm_notify_btn ->
                 if (view is TextView) {
-                    mVM.fetchData()
+                    mVM?.fetchData()
                 }
             R.id.vm_finish_btn ->
                 finish()

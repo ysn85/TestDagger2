@@ -10,6 +10,7 @@ import kotlinx.coroutines.launch
 
 class TestViewModel(private val dataSource: DataSource) : ViewModel() {
 
+    //    private val dataSource = TestDataSource()
     fun getData(): LiveData<String> {
         return dataSource.getData()
     }
@@ -29,7 +30,7 @@ class TestViewModel(private val dataSource: DataSource) : ViewModel() {
         return Looper.getMainLooper().thread === Thread.currentThread()
     }
 
-    object LiveDataVMFactory : ViewModelProvider.Factory {
+    class LiveDataVMFactory : ViewModelProvider.Factory {
         private val mDs = TestDataSource()
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             @Suppress("UNCHECKED_CAST")
