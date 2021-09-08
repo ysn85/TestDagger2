@@ -36,6 +36,9 @@ class AnnotationActivity : AppCompatActivity() {
     @BtsBindViews([R.id.annotation_array_btn, R.id.annotation_array_btn1])
     val mListUIs: MutableList<View>? = null
 
+    @BtsBindView(R.id.annotation_post_view)
+    private var mPostView: View? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_annotation)
@@ -45,6 +48,11 @@ class AnnotationActivity : AppCompatActivity() {
         Log.i(TAG, "mAnnotationTv content is ${mAnnotationTv?.text}")
         Log.i(TAG, "my name is ${mStudent.name}, age is ${mStudent.age}")
         Log.i(TAG, "my name is ${mStudentJ.name}, age is ${mStudentJ.age}")
+
+        Log.i("MyLinearLayout", "post call start")
+        mPostView?.post {
+            Log.i("MyLinearLayout", "post call")
+        }
 
         mAnnotationRv?.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)

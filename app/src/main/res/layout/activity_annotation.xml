@@ -76,4 +76,18 @@
         app:layout_constraintLeft_toRightOf="@id/annotation_rv"
         app:layout_constraintTop_toBottomOf="@id/annotation_next_btn" />
 
+    <com.utils.MyLinearLayout
+        android:id="@+id/annotation_post_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf="@id/annotation_rv"
+        app:layout_constraintTop_toBottomOf="@id/annotation_live_data_btn">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:text="1234567890"
+            android:textSize="14dp" />
+    </com.utils.MyLinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
