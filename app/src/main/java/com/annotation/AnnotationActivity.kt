@@ -67,7 +67,7 @@ class AnnotationActivity : AppCompatActivity() {
         hashSet.add(test1)
         hashSet.add(test2)
         Log.i(TAG, "hashSet start size ${hashSet.size}")
-        test1.age = 8
+//        test1.age = 8
         hashSet.remove(test1)
         Log.i(TAG, "hashSet end size ${hashSet.size}")
     }
