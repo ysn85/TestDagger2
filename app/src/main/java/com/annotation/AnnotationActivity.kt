@@ -80,6 +80,11 @@ class AnnotationActivity : AppCompatActivity() {
         Log.i(TAG, "hashSet end size ${hashSet.size}")
     }
 
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+        Log.i(TAG, "mPostView width = ${mPostView?.width}, hasFocus = $hasFocus")
+    }
+
     companion object {
         const val TAG = "AnnotationActivity"
     }
