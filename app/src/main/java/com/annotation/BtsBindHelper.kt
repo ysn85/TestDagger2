@@ -1,6 +1,7 @@
 package com.annotation
 
 import android.app.Activity
+import android.app.Dialog
 import android.view.View
 
 object BtsBindHelper {
@@ -51,7 +52,19 @@ object BtsBindHelper {
     }
 
     fun bind(activity: Activity) {
-        bind(activity, activity.window.decorView)
+        bind(activity, activity)
+    }
+
+    fun bind(target: Any, activity: Activity) {
+        bind(target, activity.window.decorView)
+    }
+
+    fun bind(dialog: Dialog) {
+        bind(dialog, dialog)
+    }
+
+    fun bind(target: Any, dialog: Dialog) {
+        dialog.window?.let { bind(target, it.decorView) }
     }
 
     fun bind(target: Any, view: View) {
