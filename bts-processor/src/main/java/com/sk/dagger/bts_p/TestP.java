@@ -1,6 +1,7 @@
 package com.sk.dagger.bts_p;
 
 import com.google.auto.service.AutoService;
+import com.sk.dagger.bts_annotation.TestDe;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -11,6 +12,7 @@ import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.Processor;
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.SourceVersion;
+import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 import javax.tools.Diagnostic;
 
@@ -28,6 +30,9 @@ public class TestP extends AbstractProcessor {
     @Override
     public boolean process(Set<? extends TypeElement> set, RoundEnvironment roundEnvironment) {
         messager.printMessage(Diagnostic.Kind.NOTE, "hello Processor");
+        for (Element e : roundEnvironment.getElementsAnnotatedWith(TestDe.class)) {
+            messager.printMessage(Diagnostic.Kind.NOTE, "hello Processor " + e.getSimpleName());
+        }
         return false;
     }
 
