@@ -23,12 +23,12 @@ public class TestP extends AbstractProcessor {
     public synchronized void init(ProcessingEnvironment processingEnvironment) {
         super.init(processingEnvironment);
         messager = processingEnvironment.getMessager();
-        messager.printMessage(Diagnostic.Kind.NOTE, "\n hello init");
+        messager.printMessage(Diagnostic.Kind.NOTE, "hello init");
     }
 
     @Override
     public boolean process(Set<? extends TypeElement> set, RoundEnvironment roundEnvironment) {
-        messager.printMessage(Diagnostic.Kind.NOTE, "\nhello Processor");
+        messager.printMessage(Diagnostic.Kind.NOTE, "hello Processor");
         return false;
     }
 
@@ -41,7 +41,7 @@ public class TestP extends AbstractProcessor {
 
     @Override
     public SourceVersion getSupportedSourceVersion() {
-        messager.printMessage(Diagnostic.Kind.NOTE, "\n hello getSupportedSourceVersion");
-        return SourceVersion.latest();
+        messager.printMessage(Diagnostic.Kind.NOTE, "hello getSupportedSourceVersion");
+        return SourceVersion.latestSupported();
     }
 }
