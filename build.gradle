@@ -24,3 +24,12 @@
     task clean (type: Delete) {
         delete rootProject.buildDir
     }
+
+    task test() {
+        println("hello groovy")
+        hello()
+    }
+
+     def hello() {
+         println("hello Groovy!")
+     }

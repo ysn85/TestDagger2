@@ -1,6 +1,7 @@
 package com.annotation;
 
 public class StudentJ {
+    @TestAnnotationJ
     String name;
     int age;
 

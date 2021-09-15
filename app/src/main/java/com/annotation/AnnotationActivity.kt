@@ -90,8 +90,11 @@ class AnnotationActivity : AppCompatActivity() {
     }
 
     @BtsOnClick(
-        [R.id.annotation_btn, R.id.annotation_btn1,
-            R.id.annotation_next_btn, R.id.annotation_live_data_btn]
+        [
+            R.id.annotation_btn,
+            R.id.annotation_btn1,
+            R.id.annotation_next_btn,
+            R.id.annotation_live_data_btn]
     )
     private fun onBtnClick(view: View) {
         if (view is TextView) {

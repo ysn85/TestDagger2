@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
+import org.jetbrains.annotations.Contract
 
 class TestViewModel(private val dataSource: DataSource) : ViewModel() {
 
@@ -15,6 +16,7 @@ class TestViewModel(private val dataSource: DataSource) : ViewModel() {
         return dataSource.getData()
     }
 
+    @Contract
     fun fetchData() {
         viewModelScope.launch {
             if (isMainThread()) {

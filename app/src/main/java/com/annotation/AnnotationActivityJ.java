@@ -14,17 +14,18 @@ import java.util.ArrayList;
 
 public class AnnotationActivityJ extends AppCompatActivity {
     private static final String TAG = "AnnotationActivityJ";
-
     @BtsBindView(R.id.annotation_btn)
     private TextView mBtn;
     @BtsBindViews({R.id.annotation_array_btn, R.id.annotation_array_btn1})
     private ArrayList<View> mListUIs = null;
+    private String name = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_annotation);
         BtsBindHelper.INSTANCE.bind(this);
+        assert name == null;
 
         /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             mListUIs.forEach(action -> {

@@ -1,2 +1,3 @@
+include ':bts-processor'
 include ':app'
 rootProject.name = "TestDagger2"
