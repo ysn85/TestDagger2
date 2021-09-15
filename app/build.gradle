@@ -51,6 +51,7 @@ dependencies {
 //    androidTestImplementation 'androidx.test.espressgito:espresso-core:3.2.0'
 
     implementation 'me.everything:overscroll-decor-android:1.0.4'
+    implementation project(':bts-annotation')
 
     implementation 'com.google.dagger:dagger:2.38.1'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.38.1'

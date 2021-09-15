@@ -13,12 +13,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 import com.live.demo.TestLiveDataActivity
+import com.sk.dagger.bts_annotation.TestDe
 
 /**
  * @author Lee
  * @since 2021-08-25
  */
 class AnnotationActivity : AppCompatActivity() {
+    @TestDe
     @TestAnnotationJ
     @PersonAnnotation(name = "小明", age = 15)
     private lateinit var mStudent: Student
