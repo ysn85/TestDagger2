@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 import com.live.demo.TestLiveDataActivity
 import com.sk.dagger.bts_annotation.TestDe
+import com.sk.dagger.bts_annotation.TestKDe
 
 /**
  * @author Lee
@@ -25,6 +26,7 @@ class AnnotationActivity : AppCompatActivity() {
     @PersonAnnotation(name = "小明", age = 15)
     private lateinit var mStudent: Student
 
+    @TestKDe
     @TestAnnotationJ
     @PersonAnnotation(name = "小丽", age = 16)
     private lateinit var mStudentJ: StudentJ

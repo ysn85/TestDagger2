@@ -1,5 +1,7 @@
-apply plugin: 'java-library'
-
+//apply plugin: 'java-library'
+plugins {
+    id 'kotlin'
+}
 //dependencies {
 //    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 //}
