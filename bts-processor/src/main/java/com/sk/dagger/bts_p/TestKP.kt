@@ -23,8 +23,8 @@ class TestKP : AbstractProcessor() {
     }
 
     override fun process(p0: MutableSet<out TypeElement>?, p1: RoundEnvironment?): Boolean {
+//        val set = p1?.getElementsAnnotatedWith(MustBeDocumented::class)
         printProcessorMsg("hello kt process")
-//        val set = p1.getElementsAnnotatedWith(TestKDe::class)
         return false
     }
 
