@@ -11,10 +11,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.auto.service.BaseDataService
 import com.example.myapplication.R
 import com.live.demo.TestLiveDataActivity
 import com.sk.dagger.bts_annotation.TestDe
 import com.sk.dagger.bts_annotation.TestKDe
+import java.util.ServiceLoader
 
 /**
  * @author Lee
@@ -82,6 +84,11 @@ class AnnotationActivity : AppCompatActivity() {
 //        test1.age = 8
         hashSet.remove(test1)
         Log.i(TAG, "hashSet end size ${hashSet.size}")
+
+        val serviceLoader = ServiceLoader.load(BaseDataService::class.java)
+        serviceLoader.forEach {
+            Log.i(TAG, "testServiceLoader ${it.data}")
+        }
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
