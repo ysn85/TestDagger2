@@ -1,12 +1,11 @@
 //apply from: "./config/detekt.gradle"
-
-//apply plugin: 'com.sk.dagger.bts_plugin'
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
-//    id 'com.sk.dagger.bts_plugin'
 }
+
+//apply plugin: 'com.sk.dagger.bts_plugin'
 
 android {
     compileSdkVersion 30
