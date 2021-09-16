@@ -4,7 +4,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
-    id 'com.sk.dagger.bts_plugin'
+//    id 'com.sk.dagger.bts_plugin'
 }
 
 android {
