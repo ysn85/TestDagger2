@@ -28,7 +28,6 @@ class AnnotationActivity : AppCompatActivity() {
     @PersonAnnotation(name = "小明", age = 15)
     private lateinit var mStudent: Student
 
-    @TestKDe
     @TestAnnotationJ
     @PersonAnnotation(name = "小丽", age = 16)
     private lateinit var mStudentJ: StudentJ
@@ -42,6 +41,7 @@ class AnnotationActivity : AppCompatActivity() {
     @BtsBindViews([R.id.annotation_array_btn, R.id.annotation_array_btn1])
     val mListUIs: MutableList<View>? = null
 
+    @TestKDe
     @BtsBindView(R.id.annotation_post_view)
     private var mPostView: View? = null
 

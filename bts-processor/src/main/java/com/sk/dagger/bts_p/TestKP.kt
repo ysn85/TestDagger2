@@ -1,6 +1,7 @@
 package com.sk.dagger.bts_p
 
 import com.google.auto.service.AutoService
+import com.sk.dagger.bts_annotation.TestKDe
 import java.util.LinkedHashSet
 import javax.annotation.processing.AbstractProcessor
 import javax.annotation.processing.Messager
@@ -23,8 +24,11 @@ class TestKP : AbstractProcessor() {
     }
 
     override fun process(p0: MutableSet<out TypeElement>?, p1: RoundEnvironment?): Boolean {
-//        val set = p1?.getElementsAnnotatedWith(MustBeDocumented::class)
+        val set = p1?.getElementsAnnotatedWith(TestKDe::class.java)
         printProcessorMsg("hello kt process")
+        set?.forEach {
+            printProcessorMsg("hello kt process ${it.simpleName}")
+        }
         return false
     }
 

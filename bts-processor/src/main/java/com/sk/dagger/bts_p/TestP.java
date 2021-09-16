@@ -1,9 +1,9 @@
 package com.sk.dagger.bts_p;
 
 import com.google.auto.service.AutoService;
+import com.google.common.collect.ImmutableSet;
 import com.sk.dagger.bts_annotation.TestDe;
 
-import java.util.LinkedHashSet;
 import java.util.Set;
 
 import javax.annotation.processing.AbstractProcessor;
@@ -38,9 +38,7 @@ public class TestP extends AbstractProcessor {
 
     @Override
     public Set<String> getSupportedAnnotationTypes() {
-        Set<String> types = new LinkedHashSet<>();
-        types.add("com.sk.dagger.bts_annotation.TestDe");
-        return types;
+        return ImmutableSet.of("com.sk.dagger.bts_annotation.TestDe");
     }
 
     @Override
