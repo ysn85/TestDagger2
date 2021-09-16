@@ -13,12 +13,12 @@ uploadArchives {
             //本地的Maven地址设置为D:/repos
             println("rootDir is ${System.getProperty("user.home")}")
             println("rootDir is ? $rootDir")
-            repository(url: "file:" + System.getProperty("user.home") + File.separator + "mavenRepos" + File.separator + 'testPluginRepos')
+            repository(url: "file:" + System.getProperty("user.home") + File.separator + "mavenRepos" + File.separator + "testPluginRepos")
 
             // 唯一标识
             pom.groupId = "com.sk.dagger.bts_plugin"
             // 项目名称
-            pom.artifactId = "btsPlugin"
+            pom.artifactId = "bts-plugin"
             // 版本号
             pom.version = "1.0.0"
         }
