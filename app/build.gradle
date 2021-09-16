@@ -3,6 +3,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
+    id 'com.sk.dagger.bts_plugin'
 }
 
 //apply plugin: 'com.sk.dagger.bts_plugin'
@@ -62,5 +63,4 @@ dependencies {
     kapt project(':bts-processor')
     implementation 'com.google.auto.service:auto-service:1.0'
     kapt 'com.google.auto.service:auto-service:1.0'
-    implementation 'com.sk.dagger.bts_plugin:bts-plugin:1.0.0'
 }
