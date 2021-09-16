@@ -18,6 +18,7 @@ dependencies {
 def getRuntimeJar() {
     try {
         final File javaBase = new File(System.getProperty("java.home")).getCanonicalFile()
+        println("java-home ${javaBase.getAbsolutePath()}")
         File runtimeJar = new File(javaBase, "lib/rt.jar")
         if (runtimeJar.exists()) {
             return runtimeJar
