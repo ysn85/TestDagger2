@@ -17,4 +17,9 @@ open class HelloTask : DefaultTask() {
     fun doMyTask() {
         println("hello task doMyTask!")
     }
+
+    @TaskAction
+    fun doMyTask2() {
+        println("hello task doMyTask2")
+    }
 }
