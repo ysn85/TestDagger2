@@ -64,3 +64,10 @@ dependencies {
     implementation 'com.google.auto.service:auto-service:1.0'
     kapt 'com.google.auto.service:auto-service:1.0'
 }
+
+pkgInfo {
+    versionInfo = 'Hello extensions!'
+}
+
+def versionInfo = project.extensions.pkgInfo.versionInfo
+println('hello nice -------------' + versionInfo)
