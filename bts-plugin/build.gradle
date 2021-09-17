@@ -1,5 +1,5 @@
 apply plugin: 'java-gradle-plugin'
-//apply plugin: 'kotlin'
+apply plugin: 'kotlin' // 让Kotlin文件可被打到jar文件中
 
 repositories {
     mavenCentral()
