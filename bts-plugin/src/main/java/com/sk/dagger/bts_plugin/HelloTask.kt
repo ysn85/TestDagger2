@@ -15,7 +15,7 @@ open class HelloTask : DefaultTask() {
 
     @TaskAction
     fun doMyTask() {
-        println("hello task doMyTask!")
+        println("hello task doMyTask! ${project.extensions.getByType(HelloExtension::class.java)?.versionInfo}")
     }
 
     @TaskAction

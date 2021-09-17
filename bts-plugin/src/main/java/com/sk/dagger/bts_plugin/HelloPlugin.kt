@@ -7,7 +7,7 @@ class HelloPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         println("hello plugin ${target.buildDir?.absolutePath}")
         // 创建一个扩展属性
-        target.extensions.add("pkgInfo", HelloExtension())
+        target.extensions.add("pkgInfo", HelloExtension::class.java)
         target.tasks.create("updatePkgInfo", HelloTask::class.java)
     }
 }

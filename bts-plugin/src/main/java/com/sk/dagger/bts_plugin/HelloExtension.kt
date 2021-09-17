@@ -1,5 +1,5 @@
 package com.sk.dagger.bts_plugin
 
-class HelloExtension {
+open class HelloExtension {
     var versionInfo: String? = null
 }
