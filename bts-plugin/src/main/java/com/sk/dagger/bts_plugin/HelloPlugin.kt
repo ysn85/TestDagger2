@@ -6,8 +6,9 @@ import org.gradle.api.Project
 class HelloPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         println("hello plugin ${target.buildDir?.absolutePath}")
-        // 创建一个扩展属性
+        // 添加一个扩展
         target.extensions.add("pkgInfo", HelloExtension::class.java)
+        // 添加一个任务
         target.tasks.create("updatePkgInfo", HelloTask::class.java)
     }
 }
