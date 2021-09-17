@@ -91,6 +91,11 @@ class AnnotationActivity : AppCompatActivity() {
         }
     }
 
+//    @FuncTimeCost
+    private fun testTimer() {
+        Log.i(TAG, "call testTimer start")
+    }
+
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
         Log.i(TAG, "mPostView width = ${mPostView?.width}, hasFocus = $hasFocus")
@@ -113,6 +118,7 @@ class AnnotationActivity : AppCompatActivity() {
         } else {
             Log.i(TAG, "onBtnClick is click!")
         }
+        testTimer()
         when (view.id) {
             R.id.annotation_next_btn ->
                 startActivity(Intent(this, AnnotationActivityJ::class.java))
