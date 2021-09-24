@@ -154,25 +154,30 @@ public class TimeTransform extends Transform {
 
 
     private void transformDirectory(TransformInvocation invocation, DirectoryInput input) throws IOException {
-        File tempDir = invocation.getContext().getTemporaryDir();
+//        File tempDir = invocation.getContext().getTemporaryDir();
         // 获取输出路径
+
+        /**************************************注册Transform后这个操作必须要做，否则会出现dex文件缺少项目中定义的相关class文件*************************************/
         File dest = invocation.getOutputProvider()
                 .getContentLocation(input.getName(), input.getContentTypes(), input.getScopes(), Format.DIRECTORY);
-        File dir = input.getFile();
-        if (dir != null && dir.exists()) {
-            traverseDirectory(tempDir, dir);
-            FileUtils.copyDirectory(input.getFile(), dest);
-            for (Map.Entry<String, File> entry : modifyMap.entrySet()) {
-                File target = new File(dest.getAbsolutePath() + entry.getKey());
-                if (target.exists()) {
-                    target.delete();
-                }
-                FileUtils.copyFile(entry.getValue(), target);
-                entry.getValue().delete();
+        FileUtils.copyDirectory(input.getFile(), dest);
 
-                mLogger.log(LogLevel.ERROR, target.getAbsolutePath() + "-----");
-            }
-        }
+
+//        File dir = input.getFile();
+//        if (dir != null && dir.exists()) {
+//            traverseDirectory(tempDir, dir);
+//            FileUtils.copyDirectory(input.getFile(), dest);
+//            for (Map.Entry<String, File> entry : modifyMap.entrySet()) {
+//                File target = new File(dest.getAbsolutePath() + entry.getKey());
+//                if (target.exists()) {
+//                    target.delete();
+//                }
+//                FileUtils.copyFile(entry.getValue(), target);
+//                entry.getValue().delete();
+//
+//                mLogger.log(LogLevel.ERROR, target.getAbsolutePath() + "-----");
+//            }
+//        }
     }
 
     private void traverseDirectory(File tempDir, File dir) throws IOException {
