@@ -66,6 +66,7 @@ dependencies {
 }
 
 pkgInfo {
+    enableTimeCost = false
     versionInfo = 'Hello extensions success!'
     pkgName = 'com.sk.demo'
 }

@@ -11,6 +11,7 @@ import com.android.build.api.transform.TransformInvocation;
 import com.android.build.api.transform.TransformOutputProvider;
 import com.android.build.gradle.internal.pipeline.TransformManager;
 import com.android.utils.FileUtils;
+import com.sk.dagger.bts_plugin.HelloExtension;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.IOUtils;
@@ -92,6 +93,10 @@ public class TimeTransform extends Transform {
         if (outputProvider != null) {
             outputProvider.deleteAll();
         }
+
+        HelloExtension helloExtension = mProject.getExtensions().getByType(HelloExtension.class);
+        boolean flag = helloExtension.getEnableTimeCost();
+        mLogger.log(LogLevel.ERROR, "enableTimeCost = " + flag);
         // 遍历
         for (TransformInput input : inputs) {
             // 处理jar
@@ -104,7 +109,7 @@ public class TimeTransform extends Transform {
             }
             // 处理目录里面的Class
             for (DirectoryInput directoryInput : input.getDirectoryInputs()) {
-                transformDirectory(transformInvocation, directoryInput);
+                transformDirectory(transformInvocation, directoryInput, flag);
             }
         }
     }
@@ -152,32 +157,33 @@ public class TimeTransform extends Transform {
         FileUtils.copyFile(outputJar, dest);
     }
 
-
-    private void transformDirectory(TransformInvocation invocation, DirectoryInput input) throws IOException {
-//        File tempDir = invocation.getContext().getTemporaryDir();
-        // 获取输出路径
-
+    private void transformDirectory(TransformInvocation invocation, DirectoryInput input, boolean flag) throws IOException {
         /**************************************注册Transform后这个操作必须要做，否则会出现dex文件缺少项目中定义的相关class文件*************************************/
-        File dest = invocation.getOutputProvider()
-                .getContentLocation(input.getName(), input.getContentTypes(), input.getScopes(), Format.DIRECTORY);
-        FileUtils.copyDirectory(input.getFile(), dest);
+        if (flag) {
+            File tempDir = invocation.getContext().getTemporaryDir();
+            // 获取输出路径
+            File dest = invocation.getOutputProvider()
+                    .getContentLocation(input.getName(), input.getContentTypes(), input.getScopes(), Format.DIRECTORY);
+            File dir = input.getFile();
+            if (dir != null && dir.exists()) {
+                traverseDirectory(tempDir, dir);
+                FileUtils.copyDirectory(input.getFile(), dest);
+                for (Map.Entry<String, File> entry : modifyMap.entrySet()) {
+                    File target = new File(dest.getAbsolutePath() + entry.getKey());
+                    if (target.exists()) {
+                        target.delete();
+                    }
+                    FileUtils.copyFile(entry.getValue(), target);
+                    entry.getValue().delete();
 
-
-//        File dir = input.getFile();
-//        if (dir != null && dir.exists()) {
-//            traverseDirectory(tempDir, dir);
-//            FileUtils.copyDirectory(input.getFile(), dest);
-//            for (Map.Entry<String, File> entry : modifyMap.entrySet()) {
-//                File target = new File(dest.getAbsolutePath() + entry.getKey());
-//                if (target.exists()) {
-//                    target.delete();
-//                }
-//                FileUtils.copyFile(entry.getValue(), target);
-//                entry.getValue().delete();
-//
-//                mLogger.log(LogLevel.ERROR, target.getAbsolutePath() + "-----");
-//            }
-//        }
+                    mLogger.log(LogLevel.ERROR, target.getAbsolutePath() + "-----");
+                }
+            }
+        } else {
+            File dest = invocation.getOutputProvider()
+                    .getContentLocation(input.getName(), input.getContentTypes(), input.getScopes(), Format.DIRECTORY);
+            FileUtils.copyDirectory(input.getFile(), dest);
+        }
     }
 
     private void traverseDirectory(File tempDir, File dir) throws IOException {
