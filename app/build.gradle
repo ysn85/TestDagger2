@@ -20,6 +20,7 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled = true
     }
 
     buildTypes {
@@ -63,6 +64,11 @@ dependencies {
     kapt project(':bts-processor')
     implementation 'com.google.auto.service:auto-service:1.0'
     kapt 'com.google.auto.service:auto-service:1.0'
+
+    // ASM 相关 https://asm.ow2.io/ Java 字节码分析处理框架
+//    implementation 'org.ow2.asm:asm:9.2'
+//    implementation 'org.ow2.asm:asm-util:9.2'
+//    implementation 'org.ow2.asm:asm-commons:9.2'
 }
 
 pkgInfo {
