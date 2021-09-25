@@ -1,5 +1,8 @@
 package com.annotation;
 
+import androidx.annotation.RestrictTo;
+
+@RestrictTo(RestrictTo.Scope.LIBRARY)
 public class StudentJ {
     @TestAnnotationJ
     String name;

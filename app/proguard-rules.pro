@@ -33,7 +33,7 @@
 # 混淆时不记录日志
 -verbose
 # 忽略警告
--ignorewarnings
+#-ignorewarnings
 # 代码优化
 -dontshrink
 # 不优化输入的类文件
