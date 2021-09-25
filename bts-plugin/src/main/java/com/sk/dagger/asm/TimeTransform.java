@@ -23,6 +23,7 @@ import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.Opcodes;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -168,16 +169,16 @@ public class TimeTransform extends Transform {
             if (dir != null && dir.exists()) {
                 traverseDirectory(tempDir, dir);
                 FileUtils.copyDirectory(input.getFile(), dest);
-                for (Map.Entry<String, File> entry : modifyMap.entrySet()) {
-                    File target = new File(dest.getAbsolutePath() + entry.getKey());
-                    if (target.exists()) {
-                        target.delete();
-                    }
-                    FileUtils.copyFile(entry.getValue(), target);
-                    entry.getValue().delete();
-
-                    mLogger.log(LogLevel.ERROR, target.getAbsolutePath() + "-----");
-                }
+//                for (Map.Entry<String, File> entry : modifyMap.entrySet()) {
+//                    File target = new File(dest.getAbsolutePath() + entry.getKey());
+//                    if (target.exists()) {
+//                        target.delete();
+//                    }
+//                    FileUtils.copyFile(entry.getValue(), target);
+//                    entry.getValue().delete();
+//
+//                    mLogger.log(LogLevel.ERROR, target.getAbsolutePath() + "-----");
+//                }
             }
         } else {
             File dest = invocation.getOutputProvider()
@@ -190,22 +191,33 @@ public class TimeTransform extends Transform {
         for (File file : Objects.requireNonNull(dir.listFiles())) {
             if (file.isDirectory()) {
                 traverseDirectory(tempDir, file);
-            } else if (file.getAbsolutePath().endsWith(".class")) {
-                String className = path2ClassName(file.getAbsolutePath()
-                        .replace(dir.getAbsolutePath() + File.separator, ""));
-                byte[] sourceBytes = IOUtils.toByteArray(new FileInputStream(file));
+            } else if (file.getAbsolutePath().endsWith("AnnotationActivity.class")) {
+//                String className = path2ClassName(file.getAbsolutePath()
+//                        .replace(dir.getAbsolutePath() + File.separator, ""));
+                FileInputStream fileInputStream = new FileInputStream(file);
+                byte[] sourceBytes = IOUtils.toByteArray(fileInputStream);
+                IOUtils.closeQuietly(fileInputStream);
+
                 byte[] modifiedBytes = referHackClass(sourceBytes);
-                File modified = new File(tempDir, className.replace(".", "") + ".class");
+                FileOutputStream fileOutputStream = new FileOutputStream(file);
+                BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(fileOutputStream);
+                bufferedOutputStream.write(modifiedBytes);
+                bufferedOutputStream.flush();
+                IOUtils.closeQuietly(bufferedOutputStream);
+                IOUtils.closeQuietly(fileOutputStream);
 
-                if (modified.exists()) {
-                    modified.delete();
-                }
-                modified.createNewFile();
-                new FileOutputStream(modified).write(modifiedBytes);
-                String key = file.getAbsolutePath().replace(dir.getAbsolutePath(), "");
-                modifyMap.put(key, modified);
 
-                mLogger.log(LogLevel.ERROR, key + "----" + file.getAbsolutePath());
+//                File modified = new File(tempDir, className.replace(".", "") + ".class");
+//
+//                if (modified.exists()) {
+//                    modified.delete();
+//                }
+//                modified.createNewFile();
+//                new FileOutputStream(modified).write(modifiedBytes);
+//                String key = file.getAbsolutePath().replace(dir.getAbsolutePath(), "");
+//                modifyMap.put(key, modified);
+
+                mLogger.log(LogLevel.ERROR, /*key +*/ "----" + file.getAbsolutePath());
             }
         }
     }

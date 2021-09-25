@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.auto.service.BaseDataService
 import com.example.myapplication.R
 import com.live.demo.TestLiveDataActivity
+import com.sk.dagger.bts_annotation.FuncTimeCost
 import com.sk.dagger.bts_annotation.TestDe
 import com.sk.dagger.bts_annotation.TestKDe
 import java.util.ServiceLoader
@@ -105,6 +106,7 @@ class AnnotationActivity : AppCompatActivity() {
         const val TAG = "AnnotationActivity"
     }
 
+    @FuncTimeCost
     @BtsOnClick(
         [
             R.id.annotation_btn,
