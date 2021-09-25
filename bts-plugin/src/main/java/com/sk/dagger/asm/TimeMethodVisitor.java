@@ -11,11 +11,13 @@ public class TimeMethodVisitor extends AdviceAdapter {
     boolean needInject = false;
     private MethodVisitor methodVisitor;
     private String name;
+    private AutoClassVisitor autoClassVisitor;
 
-    protected TimeMethodVisitor(int api, MethodVisitor methodVisitor, int access, String name, String descriptor) {
+    protected TimeMethodVisitor(int api, MethodVisitor methodVisitor, int access, String name, String descriptor, AutoClassVisitor autoClassVisitor) {
         super(api, methodVisitor, access, name, descriptor);
         this.methodVisitor = methodVisitor;
         this.name = name;
+        this.autoClassVisitor = autoClassVisitor;
     }
 
     @Override
@@ -60,6 +62,7 @@ public class TimeMethodVisitor extends AdviceAdapter {
         AnnotationVisitor annotationVisitor = super.visitAnnotation(desc, visible);
         if (desc.equals(ANNOTATION_METHOD)) {
             needInject = true;
+            autoClassVisitor.setNeedInject(true);
         }
         return annotationVisitor;
     }

@@ -31,16 +31,16 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
 import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import java.util.jar.JarOutputStream;
 
+import static org.objectweb.asm.ClassReader.EXPAND_FRAMES;
+
 public class TimeTransform extends Transform {
-    private Map<String, File> modifyMap = new HashMap<>();
+    //    private Map<String, File> modifyMap = new HashMap<>();
     private static final String NAME = "TimeTransform";
     private final Logger mLogger;
     public Project mProject;
@@ -169,16 +169,6 @@ public class TimeTransform extends Transform {
             if (dir != null && dir.exists()) {
                 traverseDirectory(tempDir, dir);
                 FileUtils.copyDirectory(input.getFile(), dest);
-//                for (Map.Entry<String, File> entry : modifyMap.entrySet()) {
-//                    File target = new File(dest.getAbsolutePath() + entry.getKey());
-//                    if (target.exists()) {
-//                        target.delete();
-//                    }
-//                    FileUtils.copyFile(entry.getValue(), target);
-//                    entry.getValue().delete();
-//
-//                    mLogger.log(LogLevel.ERROR, target.getAbsolutePath() + "-----");
-//                }
             }
         } else {
             File dest = invocation.getOutputProvider()
@@ -191,33 +181,28 @@ public class TimeTransform extends Transform {
         for (File file : Objects.requireNonNull(dir.listFiles())) {
             if (file.isDirectory()) {
                 traverseDirectory(tempDir, file);
-            } else if (file.getAbsolutePath().endsWith("AnnotationActivity.class")) {
-//                String className = path2ClassName(file.getAbsolutePath()
-//                        .replace(dir.getAbsolutePath() + File.separator, ""));
+            } else if (file.getAbsolutePath().endsWith(".class")) {
                 FileInputStream fileInputStream = new FileInputStream(file);
                 byte[] sourceBytes = IOUtils.toByteArray(fileInputStream);
                 IOUtils.closeQuietly(fileInputStream);
 
-                byte[] modifiedBytes = referHackClass(sourceBytes);
-                FileOutputStream fileOutputStream = new FileOutputStream(file);
-                BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(fileOutputStream);
-                bufferedOutputStream.write(modifiedBytes);
-                bufferedOutputStream.flush();
-                IOUtils.closeQuietly(bufferedOutputStream);
-                IOUtils.closeQuietly(fileOutputStream);
+                ClassReader classReader = new ClassReader(sourceBytes);
+                ClassWriter classWriter = new ClassWriter(ClassWriter.COMPUTE_MAXS);
+                AutoClassVisitor cv = new AutoClassVisitor(Opcodes.ASM6, classWriter);
 
+                // 开始执行
+                classReader.accept(cv, EXPAND_FRAMES);
 
-//                File modified = new File(tempDir, className.replace(".", "") + ".class");
-//
-//                if (modified.exists()) {
-//                    modified.delete();
-//                }
-//                modified.createNewFile();
-//                new FileOutputStream(modified).write(modifiedBytes);
-//                String key = file.getAbsolutePath().replace(dir.getAbsolutePath(), "");
-//                modifyMap.put(key, modified);
-
-                mLogger.log(LogLevel.ERROR, /*key +*/ "----" + file.getAbsolutePath());
+                if (cv.isNeedInject()) {
+                    byte[] modifiedBytes = classWriter.toByteArray();
+                    FileOutputStream fileOutputStream = new FileOutputStream(file);
+                    BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(fileOutputStream);
+                    bufferedOutputStream.write(modifiedBytes);
+                    bufferedOutputStream.flush();
+                    IOUtils.closeQuietly(bufferedOutputStream);
+                    IOUtils.closeQuietly(fileOutputStream);
+                    mLogger.log(LogLevel.ERROR, /*key +*/ "----" + file.getAbsolutePath());
+                }
             }
         }
     }
@@ -227,11 +212,7 @@ public class TimeTransform extends Transform {
         ClassWriter classWriter = new ClassWriter(ClassWriter.COMPUTE_MAXS);
         ClassVisitor cv = new AutoClassVisitor(Opcodes.ASM6, classWriter);
 
-        classReader.accept(cv, ClassReader.EXPAND_FRAMES);
+        classReader.accept(cv, EXPAND_FRAMES);
         return classWriter.toByteArray();
-    }
-
-    static String path2ClassName(String pathName) {
-        return pathName.replace(File.separator, ".").replace(".class", "");
     }
 }

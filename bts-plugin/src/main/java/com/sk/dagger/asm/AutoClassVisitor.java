@@ -5,6 +5,9 @@ import org.objectweb.asm.MethodVisitor;
 
 
 public class AutoClassVisitor extends ClassVisitor {
+
+    private boolean needInject;
+
     public AutoClassVisitor(int api, ClassVisitor classVisitor) {
         super(api, classVisitor);
     }
@@ -12,6 +15,15 @@ public class AutoClassVisitor extends ClassVisitor {
     @Override
     public MethodVisitor visitMethod(int access, String name, String descriptor, String signature, String[] exceptions) {
         MethodVisitor methodVisitor = super.visitMethod(access, name, descriptor, signature, exceptions);
-        return new TimeMethodVisitor(api, methodVisitor, access, name, descriptor);
+        TimeMethodVisitor timeMethodVisitor = new TimeMethodVisitor(api, methodVisitor, access, name, descriptor, this);
+        return timeMethodVisitor;
+    }
+
+    public boolean isNeedInject() {
+        return needInject;
+    }
+
+    public void setNeedInject(boolean needInject) {
+        this.needInject = needInject;
     }
 }
