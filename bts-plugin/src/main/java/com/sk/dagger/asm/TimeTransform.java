@@ -160,27 +160,25 @@ public class TimeTransform extends Transform {
 
     private void transformDirectory(TransformInvocation invocation, DirectoryInput input, boolean flag) throws IOException {
         /**************************************注册Transform后这个操作必须要做，否则会出现dex文件缺少项目中定义的相关class文件*************************************/
+        File dest = invocation.getOutputProvider()
+                .getContentLocation(input.getName(), input.getContentTypes(), input.getScopes(), Format.DIRECTORY);
         if (flag) {
-            File tempDir = invocation.getContext().getTemporaryDir();
+//            File tempDir = invocation.getContext().getTemporaryDir();
             // 获取输出路径
-            File dest = invocation.getOutputProvider()
-                    .getContentLocation(input.getName(), input.getContentTypes(), input.getScopes(), Format.DIRECTORY);
             File dir = input.getFile();
             if (dir != null && dir.exists()) {
-                traverseDirectory(tempDir, dir);
+                traverseDirectory(/*tempDir,*/ dir);
                 FileUtils.copyDirectory(input.getFile(), dest);
             }
         } else {
-            File dest = invocation.getOutputProvider()
-                    .getContentLocation(input.getName(), input.getContentTypes(), input.getScopes(), Format.DIRECTORY);
             FileUtils.copyDirectory(input.getFile(), dest);
         }
     }
 
-    private void traverseDirectory(File tempDir, File dir) throws IOException {
+    private void traverseDirectory(/*File tempDir,*/ File dir) throws IOException {
         for (File file : Objects.requireNonNull(dir.listFiles())) {
             if (file.isDirectory()) {
-                traverseDirectory(tempDir, file);
+                traverseDirectory(/*tempDir,*/ file);
             } else if (file.getAbsolutePath().endsWith(".class")) {
                 FileInputStream fileInputStream = new FileInputStream(file);
                 byte[] sourceBytes = IOUtils.toByteArray(fileInputStream);
