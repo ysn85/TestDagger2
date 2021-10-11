@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
+import com.sk.dagger.bts_annotation.FuncTimeCost;
 
 import java.util.ArrayList;
 
@@ -45,6 +46,7 @@ public class AnnotationActivityJ extends AppCompatActivity {
         }
     }
 
+    @FuncTimeCost
     @BtsOnClick({R.id.annotation_btn, R.id.annotation_btn1, R.id.annotation_next_btn})
     private void onBtnClick(View view) {
         if (view instanceof TextView) {

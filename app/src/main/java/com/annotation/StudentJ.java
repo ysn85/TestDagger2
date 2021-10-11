@@ -10,6 +10,8 @@ public class StudentJ {
 
     @Deprecated
     public void getAge() {
+        long startTime = System.currentTimeMillis();
+        System.out.println(startTime);
     }
 
     @Override
