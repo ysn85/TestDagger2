@@ -18,6 +18,7 @@ import com.sk.dagger.bts_annotation.FuncTimeCost
 import com.sk.dagger.bts_annotation.TestDe
 import com.sk.dagger.bts_annotation.TestKDe
 import java.util.ServiceLoader
+import java.util.concurrent.CountDownLatch
 
 /**
  * @author Lee
@@ -45,6 +46,8 @@ class AnnotationActivity : AppCompatActivity() {
     @TestKDe
     @BtsBindView(R.id.annotation_post_view)
     private var mPostView: View? = null
+
+    private var mCountDownLatch: CountDownLatch = CountDownLatch(2)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -90,9 +93,15 @@ class AnnotationActivity : AppCompatActivity() {
         serviceLoader.forEach {
             Log.i(TAG, "testServiceLoader ${it.data}")
         }
+
+        Thread {
+            Log.i(TAG, "thread await")
+            mCountDownLatch.await()
+            Log.i(TAG, "thread await end")
+        }.start()
     }
 
-//    @FuncTimeCost
+    //    @FuncTimeCost
     private fun testTimer() {
         Log.i(TAG, "call testTimer start")
     }
@@ -121,6 +130,7 @@ class AnnotationActivity : AppCompatActivity() {
             Log.i(TAG, "onBtnClick is click!")
         }
         testTimer()
+        mCountDownLatch.countDown()
         when (view.id) {
             R.id.annotation_next_btn ->
                 startActivity(Intent(this, AnnotationActivityJ::class.java))
