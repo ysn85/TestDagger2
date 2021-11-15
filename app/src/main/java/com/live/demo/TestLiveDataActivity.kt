@@ -3,9 +3,11 @@ package com.live.demo
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.webkit.WebView
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.text.HtmlCompat
 import com.annotation.BtsBindHelper
 import com.annotation.BtsBindView
 import com.annotation.BtsOnClick
@@ -22,6 +24,9 @@ class TestLiveDataActivity : AppCompatActivity() {
     @BtsBindView(R.id.vm_notify_btn)
     private var mNotifyBtn: TextView? = null
 
+    @BtsBindView(R.id.vm_net_view)
+    private var mWebView: WebView? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        mVM = ViewModelProvider(this)
@@ -37,6 +42,15 @@ class TestLiveDataActivity : AppCompatActivity() {
 
         mVM.getData().observe(this, { value ->
             mNotifyBtn?.text = value
+
+            if (value.contains("<HTML>", true)) {
+                mWebView?.loadData(
+                    HtmlCompat.fromHtml(
+                        value,
+                        HtmlCompat.FROM_HTML_MODE_COMPACT
+                    ).toString(), "text/html", "UTF-8"
+                )
+            }
         })
     }
 
