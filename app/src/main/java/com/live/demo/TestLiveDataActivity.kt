@@ -47,7 +47,7 @@ class TestLiveDataActivity : AppCompatActivity() {
                 mWebView?.loadData(
                     HtmlCompat.fromHtml(
                         value,
-                        HtmlCompat.FROM_HTML_MODE_COMPACT
+                        HtmlCompat.FROM_HTML_SEPARATOR_LINE_BREAK_LIST_ITEM
                     ).toString(), "text/html", "UTF-8"
                 )
             }

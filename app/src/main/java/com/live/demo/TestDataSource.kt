@@ -35,7 +35,13 @@ class TestDataSource : DataSource {
 
     override suspend fun fetchLocalData() {
         withContext(Dispatchers.Main) {
-            mLocalData.value = "get data from local..."
+            mLocalData.value = "<html><div>" +
+                    "  <p>" +
+                    "    <b>name: </b>" +
+                    "    <span>mediator</span>" +
+                    "  </p>" +
+                    "  </div>" +
+                    "</div></html>"
         }
     }
 
@@ -56,7 +62,7 @@ class TestDataSource : DataSource {
             bufferedReader = BufferedReader(InputStreamReader(inputStream))
             var readLineStr: String? = bufferedReader.readLine()
             while (readLineStr != null) {
-                stringBuilder.append(readLineStr).append("\n")
+                stringBuilder.append(readLineStr).append("")
                 readLineStr = bufferedReader.readLine()
             }
         } catch (ioe: IOException) {
