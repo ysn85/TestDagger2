@@ -20,6 +20,8 @@ class TestViewModel(private val dataSource: DataSource) : ViewModel() {
 
         mData.addSource(dataSource.getDataFromLocal()) {
             mData.postValue(it)
+            //废弃来自网络中的数据
+            mData.removeSource(dataSource.getDataFromNet())
         }
     }
 
