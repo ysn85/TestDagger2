@@ -1,8 +1,9 @@
 package com.live.demo
 
-import android.content.Context
+import android.app.Application
 import android.os.Looper
 import android.util.Log
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
@@ -10,7 +11,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 
-class TestViewModel(private val dataSource: DataSource) : ViewModel() {
+class TestViewModel(private val dataSource: DataSource, application: Application) :
+    AndroidViewModel(application) {
     private val mData = MediatorLiveData<String>()
 
     init {
@@ -56,12 +58,12 @@ class TestViewModel(private val dataSource: DataSource) : ViewModel() {
         return Looper.getMainLooper().thread === Thread.currentThread()
     }
 
-    class LiveDataVMFactory(private val context: Context) : ViewModelProvider.Factory {
+    class LiveDataVMFactory(private val application: Application) : ViewModelProvider.Factory {
         private val mDs = TestDataSource()
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             @Suppress("UNCHECKED_CAST")
-            Log.i(TAG, "create Model from pkg ${context.packageName}");
-            return TestViewModel(mDs) as T
+            Log.i(TAG, "create Model from pkg ${application.packageName}");
+            return TestViewModel(mDs, application) as T
         }
     }
 

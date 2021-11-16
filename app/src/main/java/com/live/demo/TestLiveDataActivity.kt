@@ -16,7 +16,7 @@ import com.example.myapplication.R
 class TestLiveDataActivity : AppCompatActivity() {
 
     private val mVM: TestViewModel by viewModels {
-        TestViewModel.LiveDataVMFactory(this.applicationContext)
+        TestViewModel.LiveDataVMFactory(application)
     }
 
 //    private var mVM: TestViewModel? = null
