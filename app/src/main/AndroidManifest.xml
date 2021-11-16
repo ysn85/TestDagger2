@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.myapplication">
+
     <uses-permission android:name="android.permission.INTERNET" />
-     <application
+    <application
         android:name="com.dagger.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -22,6 +23,7 @@
         </activity>
         <activity android:name="com.annotation.AnnotationActivityJ" />
         <activity android:name="com.live.demo.TestLiveDataActivity" />
+        <activity android:name="com.live.mediator.demo.TestMediatorActivity" />
     </application>
 
 </manifest>

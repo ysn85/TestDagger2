@@ -16,12 +16,12 @@ import com.example.myapplication.R
 class TestLiveDataActivity : AppCompatActivity() {
 
     private val mVM: TestViewModel by viewModels {
-        TestViewModel.LiveDataVMFactory()
+        TestViewModel.LiveDataVMFactory(this.applicationContext)
     }
 
 //    private var mVM: TestViewModel? = null
 
-    @BtsBindView(R.id.vm_notify_btn)
+    @BtsBindView(R.id.vm_notify_net_btn)
     private var mNotifyBtn: TextView? = null
 
     @BtsBindView(R.id.vm_net_view)
@@ -54,13 +54,16 @@ class TestLiveDataActivity : AppCompatActivity() {
         })
     }
 
-    @BtsOnClick([R.id.vm_notify_btn, R.id.vm_finish_btn])
+    @BtsOnClick([R.id.vm_notify_net_btn, R.id.vm_finish_btn, R.id.vm_notify_local_btn])
     private fun onBtnClick(view: View) {
         when (view.id) {
-            R.id.vm_notify_btn ->
+            R.id.vm_notify_net_btn ->
                 if (view is TextView) {
-                    mVM.fetchData()
+                    mVM.fetchNetData()
                 }
+            R.id.vm_notify_local_btn -> {
+                mVM.fetchLocalData()
+            }
             R.id.vm_finish_btn ->
                 finish()
         }

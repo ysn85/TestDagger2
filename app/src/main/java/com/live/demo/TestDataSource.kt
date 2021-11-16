@@ -14,16 +14,28 @@ import java.io.InputStreamReader
 import java.net.URL
 
 class TestDataSource : DataSource {
-    private val mNameData = MutableLiveData<String>()
-    override fun getData(): LiveData<String> {
-        return mNameData
+    private val mNetData = MutableLiveData<String>()
+    private val mLocalData = MutableLiveData<String>()
+
+    override fun getDataFromNet(): LiveData<String> {
+        return mNetData
     }
 
-    override suspend fun fetchData() {
+    override fun getDataFromLocal(): LiveData<String> {
+        return mLocalData
+    }
+
+    override suspend fun fetchNetData() {
         withContext(Dispatchers.Main) {
-            mNameData.value = "Loading..."
-            mNameData.value = fetchRealData()
-            mNameData.value = fetchDataFromNet()
+            mNetData.value = "Loading..."
+            mNetData.value = fetchRealData()
+            mNetData.value = fetchDataFromNet()
+        }
+    }
+
+    override suspend fun fetchLocalData() {
+        withContext(Dispatchers.Main) {
+            mLocalData.value = "get data from local..."
         }
     }
 
@@ -31,7 +43,7 @@ class TestDataSource : DataSource {
 //        BtsStringBuilder.of()
         Log.i(TAG, "fetchDataFromNet start")
         // 子线程需要这样更新LiveData数据
-        mNameData.postValue("Loading Net")
+        mNetData.postValue("Loading Net")
         delay(2000)
         val url = URL("https://www.baidu.com/")
         var inputStream: InputStream? = null
@@ -70,6 +82,8 @@ class TestDataSource : DataSource {
 }
 
 interface DataSource {
-    fun getData(): LiveData<String>
-    suspend fun fetchData()
+    fun getDataFromNet(): LiveData<String>
+    fun getDataFromLocal(): LiveData<String>
+    suspend fun fetchNetData()
+    suspend fun fetchLocalData()
 }

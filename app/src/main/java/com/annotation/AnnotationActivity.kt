@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.auto.service.BaseDataService
 import com.example.myapplication.R
 import com.live.demo.TestLiveDataActivity
+import com.live.mediator.demo.TestMediatorActivity
 import com.sk.dagger.bts_annotation.FuncTimeCost
 import com.sk.dagger.bts_annotation.TestDe
 import com.sk.dagger.bts_annotation.TestKDe
@@ -133,7 +134,7 @@ class AnnotationActivity : AppCompatActivity() {
         mCountDownLatch.countDown()
         when (view.id) {
             R.id.annotation_next_btn ->
-                startActivity(Intent(this, AnnotationActivityJ::class.java))
+                startActivity(Intent(this, TestMediatorActivity::class.java))
             R.id.annotation_live_data_btn ->
                 startActivity(Intent(this, TestLiveDataActivity::class.java))
             else -> {
