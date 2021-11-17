@@ -23,7 +23,7 @@ class TestViewModel(private val dataSource: DataSource, application: Application
         mData.addSource(dataSource.getDataFromLocal()) {
             mData.postValue(it)
             //废弃来自网络中的数据
-            mData.removeSource(dataSource.getDataFromNet())
+//            mData.removeSource(dataSource.getDataFromNet())
         }
     }
 
@@ -49,6 +49,14 @@ class TestViewModel(private val dataSource: DataSource, application: Application
             } else {
                 Log.i(TAG, "fetchLocalData on SubThread ")
             }
+
+            dataSource.fetchLocalData()
+        }
+    }
+
+    fun fetchNetAndLocalByOrder() {
+        viewModelScope.launch {
+            dataSource.fetchNetData()
             dataSource.fetchLocalData()
         }
     }

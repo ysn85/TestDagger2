@@ -27,21 +27,24 @@ class TestDataSource : DataSource {
 
     override suspend fun fetchNetData() {
         withContext(Dispatchers.Main) {
-            mNetData.value = "Loading..."
-            mNetData.value = fetchRealData()
+//            mNetData.value = "Loading..."
+//            mNetData.value = fetchRealData()
             mNetData.value = fetchDataFromNet()
         }
     }
 
     override suspend fun fetchLocalData() {
-        withContext(Dispatchers.Main) {
-            mLocalData.value = "<html><div>" +
-                    "  <p>" +
-                    "    <b>name: </b>" +
-                    "    <span>mediator</span>" +
-                    "  </p>" +
-                    "  </div>" +
-                    "</div></html>"
+        withContext(Dispatchers.IO) {
+            delay(2000)
+            mLocalData.postValue(
+                "<html><div>" +
+                        "  <p>" +
+                        "    <b>name: </b>" +
+                        "    <span>mediator</span>" +
+                        "  </p>" +
+                        "  </div>" +
+                        "</div></html>"
+            )
         }
     }
 
@@ -49,7 +52,7 @@ class TestDataSource : DataSource {
 //        BtsStringBuilder.of()
         Log.i(TAG, "fetchDataFromNet start")
         // 子线程需要这样更新LiveData数据
-        mNetData.postValue("Loading Net")
+        mNetData.postValue("Loading Net...")
         delay(2000)
         val url = URL("https://www.baidu.com/")
         var inputStream: InputStream? = null
@@ -79,12 +82,12 @@ class TestDataSource : DataSource {
         }
     }
 
-    private suspend fun fetchRealData(): String = withContext(Dispatchers.IO) {
-        Log.i(TAG, "fetchRealData start")
-//        BtsStringBuilder.of()
-        delay(2000)
-        "Hello new Data"
-    }
+//    private suspend fun fetchRealData(): String = withContext(Dispatchers.IO) {
+//        Log.i(TAG, "fetchRealData start")
+////        BtsStringBuilder.of()
+//        delay(2000)
+//        "Hello new Data"
+//    }
 }
 
 interface DataSource {

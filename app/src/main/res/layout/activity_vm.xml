@@ -21,6 +21,14 @@
         android:text="ObtainLocalData" />
 
     <Button
+        android:id="@+id/vm_notify_net_local_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:text="ObtainNetLocalData" />
+
+    <Button
         android:id="@+id/vm_finish_btn"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
