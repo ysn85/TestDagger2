@@ -70,7 +70,7 @@ class TestMediatorActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         mEt?.removeTextChangedListener(mTextWatcher)
+        super.onDestroy()
     }
 }

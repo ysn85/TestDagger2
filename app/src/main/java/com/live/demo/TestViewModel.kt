@@ -7,7 +7,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProvider.NewInstanceFactory
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 
@@ -66,7 +66,7 @@ class TestViewModel(private val dataSource: DataSource, application: Application
         return Looper.getMainLooper().thread === Thread.currentThread()
     }
 
-    class LiveDataVMFactory(private val application: Application) : ViewModelProvider.Factory {
+    class LiveDataVMFactory(private val application: Application) : NewInstanceFactory() {
         private val mDs = TestDataSource()
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             @Suppress("UNCHECKED_CAST")
