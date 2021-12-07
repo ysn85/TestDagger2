@@ -2,16 +2,16 @@ package com.annotation;
 
 import androidx.annotation.RestrictTo;
 
+import com.sk.dagger.bts_annotation.FuncTimeCost;
+
 @RestrictTo(RestrictTo.Scope.LIBRARY)
 public class StudentJ {
     @TestAnnotationJ
     String name;
     int age;
 
-    @Deprecated
+    @FuncTimeCost
     public void getAge() {
-        long startTime = System.currentTimeMillis();
-        System.out.println(startTime);
     }
 
     @Override

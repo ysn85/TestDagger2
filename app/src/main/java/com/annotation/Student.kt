@@ -8,6 +8,6 @@ class Student {
 
     @TestAnnotation
     fun getStudentInfo(): String {
-        return "name is $name age is $age"
+        return ""
     }
 }
