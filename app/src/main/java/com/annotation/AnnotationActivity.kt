@@ -58,7 +58,7 @@ class AnnotationActivity : AppCompatActivity() {
 
         Log.i(TAG, "mAnnotationTv content is ${mAnnotationTv?.text}")
         Log.i(TAG, "my name is ${mStudent.name}, age is ${mStudent.age}")
-        Log.i(TAG, "my name is ${mStudentJ.name}, age is ${mStudentJ.age}")
+        Log.i(TAG, "my name is ${mStudentJ.name}, age is ${mStudentJ.getAge()}")
 
         Log.i("MyLinearLayout", "post call start")
         mPostView?.post {

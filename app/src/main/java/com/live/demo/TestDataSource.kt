@@ -25,12 +25,18 @@ class TestDataSource : DataSource {
         return mLocalData
     }
 
+    suspend fun fe() {
+//        coroutineScope {  }
+//        delay(100)
+//        withContext()
+        mNetData.value = ""
+    }
+
     override suspend fun fetchNetData() {
-        withContext(Dispatchers.Main) {
 //            mNetData.value = "Loading..."
 //            mNetData.value = fetchRealData()
-            mNetData.value = fetchDataFromNet()
-        }
+        val tempValue = fetchDataFromNet()
+        mNetData.value = tempValue
     }
 
     override suspend fun fetchLocalData() {

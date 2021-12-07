@@ -9,9 +9,16 @@ public class StudentJ {
     @TestAnnotationJ
     String name;
     int age;
+    private int classNum;
 
     @FuncTimeCost
     public void getAge() {
+        toString();
+    }
+
+    public void getName() {
+        long startTime = System.currentTimeMillis();
+        System.out.println("执行时间 " + (System.currentTimeMillis() - startTime) + " ms");
     }
 
     @Override

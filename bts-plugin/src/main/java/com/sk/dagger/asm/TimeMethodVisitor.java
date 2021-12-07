@@ -25,6 +25,7 @@ public class TimeMethodVisitor extends AdviceAdapter {
         if (needInject) {
             mv.visitMethodInsn(INVOKESTATIC, "java/lang/System", "currentTimeMillis", "()J", false);
             mv.visitVarInsn(LSTORE, 3);
+            ACC_PUBLIC
         }
     }
 
