@@ -25,7 +25,6 @@ public class TimeMethodVisitor extends AdviceAdapter {
         if (needInject) {
             mv.visitMethodInsn(INVOKESTATIC, "java/lang/System", "currentTimeMillis", "()J", false);
             mv.visitVarInsn(LSTORE, 3);
-            ACC_PUBLIC
         }
     }
 
@@ -43,7 +42,7 @@ public class TimeMethodVisitor extends AdviceAdapter {
 
             mv.visitMethodInsn(INVOKESTATIC, "java/lang/System", "currentTimeMillis", "()J", false);
             mv.visitVarInsn(LLOAD, 3);
-            mv.visitInsn(LSUB); // 两个Long类型
+            mv.visitInsn(LSUB); // 两个Long类型差值运算
 
             mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(J)Ljava/lang/StringBuilder;", false);
             mv.visitLdcInsn("ms");
@@ -51,14 +50,13 @@ public class TimeMethodVisitor extends AdviceAdapter {
 
             mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "toString", "()Ljava/lang/String;", false);
             mv.visitMethodInsn(INVOKEVIRTUAL, "java/io/PrintStream", "println", "(Ljava/lang/String;)V", false);
-
         }
     }
 
     @Override
     public AnnotationVisitor visitAnnotation(String desc, boolean visible) {
         AnnotationVisitor annotationVisitor = super.visitAnnotation(desc, visible);
-        if (desc.equals(ANNOTATION_METHOD)) {
+        if (ANNOTATION_METHOD.equals(desc)) {
             needInject = true;
             autoClassVisitor.setNeedInject(true);
         }
