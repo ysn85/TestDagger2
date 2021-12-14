@@ -18,7 +18,10 @@ public class StudentJ {
 
     public void getName() {
         long startTime = System.currentTimeMillis();
-        System.out.println("执行时间 " + (System.currentTimeMillis() - startTime) + " ms");
+        long subTime = System.currentTimeMillis() - startTime;
+        if (subTime > 30) {
+            System.out.println("执行时间 " + subTime + " ms");
+        }
     }
 
     @Override
