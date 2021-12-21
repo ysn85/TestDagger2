@@ -1,13 +1,17 @@
 package com.annotation
 
-@TestAnnotation
+import com.sk.dagger.bts_annotation.FuncTimeCost
+
 class Student {
-    @TestAnnotation
     var name: String? = null
     var age: Int = 0
 
-    @TestAnnotation
     fun getStudentInfo(): String {
         return ""
+    }
+
+    @FuncTimeCost
+    fun getAgeValue(): Int {
+        return age
     }
 }
