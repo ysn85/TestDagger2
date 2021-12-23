@@ -50,7 +50,9 @@ public class TimeMethodVisitor extends AdviceAdapter {
 
             mv.visitLdcInsn("方法执行耗时->");
             mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(Ljava/lang/String;)Ljava/lang/StringBuilder;", false); // 调用StringBuilder对象的append函数
-            mv.visitLdcInsn(methodName);
+            mv.visitLdcInsn(autoClassVisitor.getClazzName());
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(Ljava/lang/String;)Ljava/lang/StringBuilder;", false);
+            mv.visitLdcInsn("." + methodName);
             mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(Ljava/lang/String;)Ljava/lang/StringBuilder;", false);
             mv.visitLdcInsn("：");
             mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(Ljava/lang/String;)Ljava/lang/StringBuilder;", false);
