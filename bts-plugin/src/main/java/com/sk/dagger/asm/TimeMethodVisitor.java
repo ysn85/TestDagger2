@@ -38,10 +38,11 @@ public class TimeMethodVisitor extends AdviceAdapter {
             mv.visitInsn(LSUB); // 从操作数栈中弹出System.currentTimeMillis()返回值和var3，将两者做差值运算，并将计算结果压入栈中
             mv.visitVarInsn(LSTORE, 4); // 从操作栈中弹出LSUB的结果，并将其存入var4局部变量中
             mv.visitVarInsn(LLOAD, 4); // 读取局部变量var4的值，并将其值压到操作数栈中
-            mv.visitLdcInsn(new Long(10L)); // 将10常量值压栈
-            mv.visitInsn(LCMP); // 将var4与刚压栈的10常量做比较运算 var4 == 10L ? 0 : (var4 < 10L ? -1 : 1)
+            mv.visitInsn(L2I); // 将栈顶var的值由long强转为int类型（int）var4
+            mv.visitLdcInsn(autoClassVisitor.getMaxTimeMonitor()); // 将获取到的值压栈
+//            mv.visitInsn(LCMP); // 将var4与刚压栈的10常量做比较运算 var4 == 10L ? 0 : (var4 < 10L ? -1 : 1) 得到的 1,0,-1中的一个值压入栈顶
             Label label1 = new Label();
-            mv.visitJumpInsn(IFLE, label1); // 对var4和10进行LCMP运算 如果结果 <=0 则跳至mv.visitLabel(label1);
+            mv.visitJumpInsn(IF_ICMPLE, label1); //比较var4>autoClassVisitor.getMaxTimeMonitor()结果小于<= 0 则跳至mv.visitLabel(label1);   //当栈顶 即对var4和10进行LCMP运算的结果 如果结果 <=0 则跳至mv.visitLabel(label1);
             mv.visitFieldInsn(GETSTATIC, "java/lang/System", "out", "Ljava/io/PrintStream;"); // 弹出System中的out静态成员变量
 
             mv.visitTypeInsn(NEW, "java/lang/StringBuilder"); // 创建一个StringBuilder对象，并将它压入操作数栈中

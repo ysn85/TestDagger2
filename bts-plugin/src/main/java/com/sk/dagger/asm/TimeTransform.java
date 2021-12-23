@@ -95,8 +95,8 @@ public class TimeTransform extends Transform {
             outputProvider.deleteAll();
         }
 
-        HelloExtension helloExtension = mProject.getExtensions().getByType(HelloExtension.class);
-        boolean flag = helloExtension.getEnableTimeCost();
+        final HelloExtension helloExtension = mProject.getExtensions().getByType(HelloExtension.class);
+        final boolean flag = helloExtension.getEnableTimeCost();
         mLogger.log(LogLevel.ERROR, "enableTimeCost = " + flag);
         // 遍历
         for (TransformInput input : inputs) {
@@ -110,7 +110,7 @@ public class TimeTransform extends Transform {
             }
             // 处理目录里面的Class
             for (DirectoryInput directoryInput : input.getDirectoryInputs()) {
-                transformDirectory(transformInvocation, directoryInput, flag);
+                transformDirectory(transformInvocation, directoryInput, helloExtension);
             }
         }
     }
@@ -158,16 +158,16 @@ public class TimeTransform extends Transform {
         FileUtils.copyFile(outputJar, dest);
     }
 
-    private void transformDirectory(TransformInvocation invocation, DirectoryInput input, boolean flag) throws IOException {
+    private void transformDirectory(TransformInvocation invocation, DirectoryInput input, HelloExtension helloExtension) throws IOException {
         /**************************************注册Transform后这个操作必须要做，否则会出现dex文件缺少项目中定义的相关class文件*************************************/
         File dest = invocation.getOutputProvider()
                 .getContentLocation(input.getName(), input.getContentTypes(), input.getScopes(), Format.DIRECTORY);
-        if (flag) {
+        if (helloExtension.getEnableTimeCost()) {
 //            File tempDir = invocation.getContext().getTemporaryDir();
             // 获取输出路径
             File dir = input.getFile();
             if (dir != null && dir.exists()) {
-                traverseDirectory(/*tempDir,*/ dir);
+                traverseDirectory(/*tempDir,*/ dir, helloExtension);
                 FileUtils.copyDirectory(input.getFile(), dest);
             }
         } else {
@@ -175,10 +175,10 @@ public class TimeTransform extends Transform {
         }
     }
 
-    private void traverseDirectory(/*File tempDir,*/ File dir) throws IOException {
+    private void traverseDirectory(/*File tempDir,*/ File dir, HelloExtension helloExtension) throws IOException {
         for (File file : Objects.requireNonNull(dir.listFiles())) {
             if (file.isDirectory()) {
-                traverseDirectory(/*tempDir,*/ file);
+                traverseDirectory(/*tempDir,*/ file, helloExtension);
             } else if (file.getAbsolutePath().endsWith(".class")) {
                 FileInputStream fileInputStream = new FileInputStream(file);
                 byte[] sourceBytes = IOUtils.toByteArray(fileInputStream);
@@ -186,7 +186,7 @@ public class TimeTransform extends Transform {
 
                 ClassReader classReader = new ClassReader(sourceBytes);
                 ClassWriter classWriter = new ClassWriter(ClassWriter.COMPUTE_MAXS);
-                AutoClassVisitor cv = new AutoClassVisitor(Opcodes.ASM6, classWriter);
+                AutoClassVisitor cv = new AutoClassVisitor(Opcodes.ASM6, classWriter, helloExtension);
 
                 // 开始执行
                 classReader.accept(cv, EXPAND_FRAMES);
@@ -208,7 +208,7 @@ public class TimeTransform extends Transform {
     private byte[] referHackClass(byte[] inputStream) {
         ClassReader classReader = new ClassReader(inputStream);
         ClassWriter classWriter = new ClassWriter(ClassWriter.COMPUTE_MAXS);
-        ClassVisitor cv = new AutoClassVisitor(Opcodes.ASM6, classWriter);
+        ClassVisitor cv = new AutoClassVisitor(Opcodes.ASM6, classWriter, null);
 
         classReader.accept(cv, EXPAND_FRAMES);
         return classWriter.toByteArray();
