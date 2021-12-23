@@ -40,6 +40,7 @@ public class TimeMethodVisitor extends AdviceAdapter {
             mv.visitVarInsn(LLOAD, 4); // 读取局部变量var4的值，并将其值压到操作数栈中
             mv.visitInsn(L2I); // 将栈顶var的值由long强转为int类型（int）var4
             mv.visitLdcInsn(autoClassVisitor.getMaxTimeMonitor()); // 将获取到的值压栈
+//            mv.visitLdcInsn(new Long(autoClassVisitor.getMaxTimeMonitor())); // 将获取到的值压栈
 //            mv.visitInsn(LCMP); // 将var4与刚压栈的10常量做比较运算 var4 == 10L ? 0 : (var4 < 10L ? -1 : 1) 得到的 1,0,-1中的一个值压入栈顶
             Label label1 = new Label();
 //            mv.visitJumpInsn(IFLE, label1);//配合LCMP一起使用 当栈顶值<=0 (即对var4和10进行LCMP运算的结果 如果结果 <=0) 则跳至mv.visitLabel(label1);
