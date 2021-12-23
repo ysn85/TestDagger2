@@ -42,7 +42,8 @@ public class TimeMethodVisitor extends AdviceAdapter {
             mv.visitLdcInsn(autoClassVisitor.getMaxTimeMonitor()); // 将获取到的值压栈
 //            mv.visitInsn(LCMP); // 将var4与刚压栈的10常量做比较运算 var4 == 10L ? 0 : (var4 < 10L ? -1 : 1) 得到的 1,0,-1中的一个值压入栈顶
             Label label1 = new Label();
-            mv.visitJumpInsn(IF_ICMPLE, label1); //比较var4>autoClassVisitor.getMaxTimeMonitor()结果小于<= 0 则跳至mv.visitLabel(label1);   //当栈顶 即对var4和10进行LCMP运算的结果 如果结果 <=0 则跳至mv.visitLabel(label1);
+//            mv.visitJumpInsn(IFLE, label1);//配合LCMP一起使用 当栈顶值<=0 (即对var4和10进行LCMP运算的结果 如果结果 <=0) 则跳至mv.visitLabel(label1);
+            mv.visitJumpInsn(IF_ICMPLE, label1); //比较var4>autoClassVisitor.getMaxTimeMonitor()结果小于<= 0 则跳至mv.visitLabel(label1);
             mv.visitFieldInsn(GETSTATIC, "java/lang/System", "out", "Ljava/io/PrintStream;"); // 弹出System中的out静态成员变量
 
             mv.visitTypeInsn(NEW, "java/lang/StringBuilder"); // 创建一个StringBuilder对象，并将它压入操作数栈中
