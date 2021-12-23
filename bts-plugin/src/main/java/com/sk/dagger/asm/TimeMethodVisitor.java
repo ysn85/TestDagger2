@@ -48,8 +48,12 @@ public class TimeMethodVisitor extends AdviceAdapter {
             mv.visitInsn(DUP); // 在操作数栈中重复这个值
             mv.visitMethodInsn(INVOKESPECIAL, "java/lang/StringBuilder", "<init>", "()V", false); // 弹出DUP之后的两个副本之一，并调用其构造函数
 
-            mv.visitLdcInsn("方法执行耗时->" + methodName + "：");
+            mv.visitLdcInsn("方法执行耗时->");
             mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(Ljava/lang/String;)Ljava/lang/StringBuilder;", false); // 调用StringBuilder对象的append函数
+            mv.visitLdcInsn(methodName);
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(Ljava/lang/String;)Ljava/lang/StringBuilder;", false);
+            mv.visitLdcInsn("：");
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(Ljava/lang/String;)Ljava/lang/StringBuilder;", false);
             mv.visitVarInsn(LLOAD, 4); // 加载var4的值
             mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(J)Ljava/lang/StringBuilder;", false);
             mv.visitLdcInsn("ms");
