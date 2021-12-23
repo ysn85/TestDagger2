@@ -75,7 +75,7 @@ pkgInfo {
     enableTimeCost = true
     versionInfo = 'Hello extensions success!'
     pkgName = 'com.sk.demo'
-    maxTimeMonitor = 5
+    maxTimeMonitor = 12
 }
 
 def versionInfo = project.extensions.pkgInfo.versionInfo

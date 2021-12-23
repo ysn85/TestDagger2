@@ -96,8 +96,8 @@ public class TimeTransform extends Transform {
         }
 
         final HelloExtension helloExtension = mProject.getExtensions().getByType(HelloExtension.class);
-        final boolean flag = helloExtension.getEnableTimeCost();
-        mLogger.log(LogLevel.ERROR, "enableTimeCost = " + flag);
+        mLogger.log(LogLevel.ERROR, "enableTimeCost = " + helloExtension.getEnableTimeCost());
+        mLogger.log(LogLevel.ERROR, "maxTimeMonitor = " + helloExtension.getMaxTimeMonitor());
         // 遍历
         for (TransformInput input : inputs) {
             // 处理jar
