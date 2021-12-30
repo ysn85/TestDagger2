@@ -4,7 +4,7 @@ buildscript {
     repositories {
         google()
         jcenter()
-        def pathUrl = System.getProperty("user.home") + File.separator + "mavenRepos" + File.separator + "testPluginRepos"
+        def pathUrl = rootProject.rootDir.absolutePath + File.separator + "mavenRepos"
         maven { url pathUrl }
     }
     dependencies {
@@ -21,7 +21,7 @@ allprojects {
     repositories {
         google()
         jcenter()
-        def pathUrl = System.getProperty("user.home") + File.separator + "mavenRepos" + File.separator + "testPluginRepos"
+        def pathUrl = rootProject.rootDir.absolutePath + File.separator + "mavenRepos"
         maven { url pathUrl }
     }
 }
