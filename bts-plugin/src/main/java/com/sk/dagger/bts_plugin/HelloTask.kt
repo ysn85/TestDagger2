@@ -26,6 +26,7 @@ open class HelloTask : DefaultTask() {
         val extensionValue = project.extensions.getByType(HelloExtension::class.java)
         println("hello task doMyTask! ${extensionValue?.versionInfo}")
         println("hello task doMyTask! ${extensionValue?.pkgName}")
+        println("hello task doMyTask! ${extensionValue?.maxTimeMonitor}")
     }
 
     @TaskAction
