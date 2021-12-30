@@ -10,7 +10,7 @@ public class TimeMethodVisitor extends AdviceAdapter {
     public static final String ANNOTATION_METHOD = "Lcom/sk/dagger/bts_annotation/FuncTimeCost;";
     boolean needInject = false;
     private MethodVisitor mv;
-        private String methodName;
+    private String methodName;
     private AutoClassVisitor autoClassVisitor;
 
     protected TimeMethodVisitor(int api, MethodVisitor mv, int access, String methodName, String descriptor, AutoClassVisitor autoClassVisitor) {
@@ -49,7 +49,7 @@ public class TimeMethodVisitor extends AdviceAdapter {
     protected void onMethodExit(int opcode) {
         super.onMethodExit(opcode);
         if (needInject) {
-            mv.visitMethodInsn(INVOKESTATIC, "java/lang/System", "currentTimeMillis", "()J", false);
+            mv.visitMethodInsn(INVOKESTATIC, "java/lang/System", "currentTimeMillis", "()J", false); // 触发System中的currentTimeMillis静态方法
             mv.visitVarInsn(LLOAD, 3); // 读取局部变量var3的值，并将其值压到操作数栈中
             mv.visitInsn(LSUB); // 从操作数栈中弹出System.currentTimeMillis()返回值和var3，将两者做差值运算，并将计算结果压入栈中
             mv.visitVarInsn(LSTORE, 4); // 从操作栈中弹出LSUB的结果，并将其存入var4局部变量中
@@ -67,14 +67,8 @@ public class TimeMethodVisitor extends AdviceAdapter {
             mv.visitInsn(DUP); // 在操作数栈中重复这个值
             mv.visitMethodInsn(INVOKESPECIAL, "java/lang/StringBuilder", "<init>", "()V", false); // 弹出DUP之后的两个副本之一，并调用其构造函数
 
-            mv.visitLdcInsn("方法执行耗时-> ");
-            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(Ljava/lang/String;)Ljava/lang/StringBuilder;", false); // 调用StringBuilder对象的append函数
-            mv.visitLdcInsn(autoClassVisitor.getClazzName());
-            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(Ljava/lang/String;)Ljava/lang/StringBuilder;", false);
-            mv.visitLdcInsn("." + methodName + "(" + methodDesc + ")");
-            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(Ljava/lang/String;)Ljava/lang/StringBuilder;", false);
-            mv.visitLdcInsn("：");
-            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(Ljava/lang/String;)Ljava/lang/StringBuilder;", false);
+            mv.visitLdcInsn(autoClassVisitor.getClazzName() + "." + methodName + "(" + methodDesc + ")" + "方法执行耗时-> ");
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(Ljava/lang/String;)Ljava/lang/StringBuilder;", false); // 调用StringBuilder实例的append函数
             mv.visitVarInsn(LLOAD, 4); // 加载var4的值
             mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(J)Ljava/lang/StringBuilder;", false);
             mv.visitLdcInsn("ms");
