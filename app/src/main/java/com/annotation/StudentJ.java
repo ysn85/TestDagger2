@@ -12,15 +12,16 @@ public class StudentJ {
     private int classNum;
 
     @FuncTimeCost
-    public void getAge() {
+    public void getAge(int aValue, String tName) {
         toString();
     }
 
-    public void getName() {
+    public void getName(String args) {
         long startTime = System.currentTimeMillis();
         long subTime = System.currentTimeMillis() - startTime;
         if (subTime > 30) {
             System.out.println("执行时间 " + subTime + " ms");
+            System.out.println(args);
         }
     }
 
