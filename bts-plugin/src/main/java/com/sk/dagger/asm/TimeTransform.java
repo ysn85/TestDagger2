@@ -163,6 +163,7 @@ public class TimeTransform extends Transform {
         File dest = invocation.getOutputProvider()
                 .getContentLocation(input.getName(), input.getContentTypes(), input.getScopes(), Format.DIRECTORY);
         if (helloExtension.getEnableTimeCost()) {
+            mLogger.log(LogLevel.ERROR, "transformDirectory if = " + helloExtension.getEnableTimeCost());
 //            File tempDir = invocation.getContext().getTemporaryDir();
             // 获取输出路径
             File dir = input.getFile();
@@ -171,6 +172,7 @@ public class TimeTransform extends Transform {
                 FileUtils.copyDirectory(input.getFile(), dest);
             }
         } else {
+            mLogger.log(LogLevel.ERROR, "transformDirectory else = " + helloExtension.getEnableTimeCost());
             FileUtils.copyDirectory(input.getFile(), dest);
         }
     }
