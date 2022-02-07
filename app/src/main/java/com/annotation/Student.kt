@@ -14,4 +14,10 @@ class Student {
     fun getAgeValue(): Int {
         return age
     }
+
+    val stringLengthFunc: (String) -> Int = { input ->
+        input.length
+    }
+
+    val stringLength: Int = stringLengthFunc("Android")
 }

@@ -21,22 +21,6 @@ public class TimeMethodVisitor extends AdviceAdapter {
     }
 
     @Override
-    public void visitLocalVariable(String name, String descriptor, String signature, Label start, Label end, int index) {
-        super.visitLocalVariable(name, descriptor, signature, start, end, index);
-//        if (needInject && name != null && "this".equals(name)) {
-//            mv.visitFieldInsn(GETSTATIC, "java/lang/System", "out", "Ljava/io/PrintStream;"); // 弹出System中的out静态成员变量
-//
-//            mv.visitTypeInsn(NEW, "java/lang/StringBuilder"); // 创建一个StringBuilder对象，并将它压入操作数栈中
-//            mv.visitInsn(DUP); // 在操作数栈中重复这个值
-//            mv.visitMethodInsn(INVOKESPECIAL, "java/lang/StringBuilder", "<init>", "()V", false); // 弹出DUP之后的两个副本之一，并调用其构造函数
-//            mv.visitLdcInsn(name);
-//            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(Ljava/lang/String;)Ljava/lang/StringBuilder;", false);
-//            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "toString", "()Ljava/lang/String;", false);
-//            mv.visitMethodInsn(INVOKEVIRTUAL, "java/io/PrintStream", "println", "(Ljava/lang/String;)V", false);
-//        }
-    }
-
-    @Override
     protected void onMethodEnter() {
         super.onMethodEnter();
         if (needInject) {
