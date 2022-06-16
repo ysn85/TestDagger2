@@ -67,18 +67,18 @@ class AnnotationActivity : AppCompatActivity() {
         mPostView?.post {
             Log.i("MyLinearLayout", "post call")
         }
-        val spanCount = 4
+        val spanCount = 2
         mAnnotationRv?.layoutManager =
             GridLayoutManager(
                 this,
                 spanCount,
-                GridLayoutManager.HORIZONTAL,
+                GridLayoutManager.VERTICAL,
                 false
             )
 
-        val itemDecoration = NavGridSpacingItemDecoration()
+        val itemDecoration = NavGridSpacingItemDecorationV()
         mAnnotationRv?.addItemDecoration(itemDecoration)
-        itemDecoration.setSpacing(leftRight = 28, top = 14, spanCount = spanCount)
+        itemDecoration.setSpacing(leftRight = 28, top = 28, spanCount = spanCount)
         mAnnotationRv?.adapter = MyAdapter()
 
         mListUIs?.forEach {
@@ -167,7 +167,7 @@ class AnnotationActivity : AppCompatActivity() {
         }
 
         override fun getItemCount(): Int {
-            return 20
+            return 100
         }
 
         class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -184,7 +184,7 @@ class AnnotationActivity : AppCompatActivity() {
             }
 
             fun updateData(value: String) {
-                mDemoItemTv?.layoutParams?.width = (1080 - 28 * 4) / 5
+                mDemoItemTv?.layoutParams?.width = (1080 - 28) / 2
                 mDemoItemTv?.text = value
             }
 
