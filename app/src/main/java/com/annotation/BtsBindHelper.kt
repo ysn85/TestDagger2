@@ -3,6 +3,7 @@ package com.annotation
 import android.app.Activity
 import android.app.Dialog
 import android.view.View
+import com.annotation.FeedFlowProperty.Companion.FEED_FLOW_ITEM_MAX_WIDTH_VALUE
 
 object BtsBindHelper {
     fun inject(any: Any) {
@@ -105,6 +106,18 @@ object BtsBindHelper {
                     field.set(target, views)
                 } catch (e: Exception) {
                     e.printStackTrace()
+                }
+            } else if (field.isAnnotationPresent(FeedFlowProperty::class.java)) {
+                // 查找指定注解
+                val annotation = field.getAnnotation(FeedFlowProperty::class.java)
+                field.isAccessible = true
+                val proName = annotation.value
+                if (proName == FEED_FLOW_ITEM_MAX_WIDTH_VALUE) {
+                    try {
+                        field.set(target, 10000)
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
                 }
             }
         }

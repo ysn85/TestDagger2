@@ -9,8 +9,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.annotation.FeedFlowProperty.Companion.FEED_FLOW_ITEM_MAX_WIDTH_VALUE
 import com.auto.service.BaseDataService
 import com.example.myapplication.R
 import com.live.demo.TestLiveDataActivity
@@ -18,7 +19,7 @@ import com.live.mediator.demo.TestMediatorActivity
 import com.sk.dagger.bts_annotation.FuncTimeCost
 import com.sk.dagger.bts_annotation.TestDe
 import com.sk.dagger.bts_annotation.TestKDe
-import java.util.ServiceLoader
+import java.util.*
 import java.util.concurrent.CountDownLatch
 
 /**
@@ -44,6 +45,9 @@ class AnnotationActivity : AppCompatActivity() {
     @BtsBindViews([R.id.annotation_array_btn, R.id.annotation_array_btn1])
     val mListUIs: MutableList<View>? = null
 
+    @FeedFlowProperty(value = FEED_FLOW_ITEM_MAX_WIDTH_VALUE)
+    private var mItemWidth: Int = 0
+
     @TestKDe
     @BtsBindView(R.id.annotation_post_view)
     private var mPostView: View? = null
@@ -57,15 +61,24 @@ class AnnotationActivity : AppCompatActivity() {
         BtsBindHelper.bind(this/*, (findViewById<ViewGroup>(android.R.id.content)).getChildAt(0)*/)
 
         Log.i(TAG, "mAnnotationTv content is ${mAnnotationTv?.text}")
-        Log.i(TAG, "my name is ${mStudent.name}, age is ${mStudent.age}")
+        Log.i(TAG, "my name is ${mStudent.name}, age is ${mStudent.age}, mItemWidth = $mItemWidth")
 
         Log.i("MyLinearLayout", "post call start")
         mPostView?.post {
             Log.i("MyLinearLayout", "post call")
         }
-
+        val spanCount = 4
         mAnnotationRv?.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+            GridLayoutManager(
+                this,
+                spanCount,
+                GridLayoutManager.HORIZONTAL,
+                false
+            )
+
+        val itemDecoration = NavGridSpacingItemDecoration()
+        mAnnotationRv?.addItemDecoration(itemDecoration)
+        itemDecoration.setSpacing(leftRight = 28, top = 14, spanCount = spanCount)
         mAnnotationRv?.adapter = MyAdapter()
 
         mListUIs?.forEach {
@@ -144,7 +157,8 @@ class AnnotationActivity : AppCompatActivity() {
     class MyAdapter : RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-            val view = LayoutInflater.from(parent.context).inflate(R.layout.list_demo_item, null)
+            val view =
+                LayoutInflater.from(parent.context).inflate(R.layout.list_demo_item, parent, false)
             return MyViewHolder(view)
         }
 
@@ -153,18 +167,24 @@ class AnnotationActivity : AppCompatActivity() {
         }
 
         override fun getItemCount(): Int {
-            return 100
+            return 20
         }
 
         class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             @BtsBindView(R.id.list_demo_item_tv)
             private var mDemoItemTv: TextView? = null
 
+            @FeedFlowProperty(FEED_FLOW_ITEM_MAX_WIDTH_VALUE)
+            private val mItemMaxWith: Int = 0
+
             init {
                 BtsBindHelper.bind(this, itemView)
+
+                Log.d("TestFeedFlow", "mItemMaxWith = $mItemMaxWith")
             }
 
             fun updateData(value: String) {
+                mDemoItemTv?.layoutParams?.width = (1080 - 28 * 4) / 5
                 mDemoItemTv?.text = value
             }
 
