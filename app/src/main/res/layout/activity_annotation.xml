@@ -10,8 +10,8 @@
         android:layout_height="48dp"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
-        android:visibility="invisible"
         android:text="Student"
+        android:visibility="invisible"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -19,11 +19,11 @@
         android:id="@+id/annotation_btn1"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
-        android:visibility="invisible"
         android:layout_marginLeft="16dp"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         android:text="Hello"
+        android:visibility="invisible"
         app:layout_constraintLeft_toRightOf="@id/annotation_btn"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -33,9 +33,9 @@
         android:layout_height="48dp"
         android:layout_marginLeft="16dp"
         android:paddingLeft="16dp"
-        android:visibility="invisible"
         android:paddingRight="16dp"
         android:text="Array1"
+        android:visibility="invisible"
         app:layout_constraintLeft_toRightOf="@id/annotation_btn1"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -46,8 +46,8 @@
         android:layout_marginLeft="16dp"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
-        android:visibility="invisible"
         android:text="Array2"
+        android:visibility="invisible"
         app:layout_constraintLeft_toRightOf="@id/annotation_array_btn"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -55,6 +55,9 @@
         android:id="@+id/annotation_rv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:scrollbars="none"
+        android:background="#F00"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/annotation_post_view" />
 

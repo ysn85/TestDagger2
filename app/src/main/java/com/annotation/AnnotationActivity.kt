@@ -9,8 +9,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS
 import com.annotation.FeedFlowProperty.Companion.FEED_FLOW_ITEM_MAX_WIDTH_VALUE
 import com.auto.service.BaseDataService
 import com.example.myapplication.R
@@ -67,18 +68,18 @@ class AnnotationActivity : AppCompatActivity() {
         mPostView?.post {
             Log.i("MyLinearLayout", "post call")
         }
-        val spanCount = 2
-        mAnnotationRv?.layoutManager =
-            GridLayoutManager(
-                this,
-                spanCount,
-                GridLayoutManager.VERTICAL,
-                false
-            )
+
+        val layoutManager = StaggeredGridLayoutManager(
+            SPAN_COUNT,
+            StaggeredGridLayoutManager.VERTICAL
+        )
+        layoutManager.gapStrategy = GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS
+        mAnnotationRv?.layoutManager = layoutManager
+
 
         val itemDecoration = NavGridSpacingItemDecorationV()
         mAnnotationRv?.addItemDecoration(itemDecoration)
-        itemDecoration.setSpacing(leftRight = 28, top = 28, spanCount = spanCount)
+        itemDecoration.setSpacing(leftRight = 28, top = 28, spanCount = SPAN_COUNT)
         mAnnotationRv?.adapter = MyAdapter()
 
         mListUIs?.forEach {
@@ -126,6 +127,7 @@ class AnnotationActivity : AppCompatActivity() {
 
     companion object {
         const val TAG = "AnnotationActivity"
+        const val SPAN_COUNT = 3
     }
 
     @FuncTimeCost
@@ -167,7 +169,7 @@ class AnnotationActivity : AppCompatActivity() {
         }
 
         override fun getItemCount(): Int {
-            return 100
+            return 4
         }
 
         class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -184,7 +186,8 @@ class AnnotationActivity : AppCompatActivity() {
             }
 
             fun updateData(value: String) {
-                mDemoItemTv?.layoutParams?.width = (1080 - 28) / 2
+                mDemoItemTv?.layoutParams?.width = StaggeredGridLayoutManager.LayoutParams.MATCH_PARENT /*((Resources.getSystem()
+                    .displayMetrics.widthPixels - 28 * (SPAN_COUNT - 1)).toFloat() / SPAN_COUNT).roundToInt()*/
                 mDemoItemTv?.text = value
             }
 

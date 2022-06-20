@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 
 
 /**
@@ -52,6 +53,10 @@ class NavGridSpacingItemDecorationV : RecyclerView.ItemDecoration() {
         val position: Int = parent.getChildAdapterPosition(view) // item position
         val column = position % mSpanCount // 元素所处行号0..n
 
+//        if (view.layoutParams as StaggeredGridLayoutManager.LayoutParams) {
+//            view.layoutParams.spanIndex
+//        }
+
         outRect.left =
             column * mLeftRightSpacing / mSpanCount
         outRect.right =
@@ -79,7 +84,10 @@ class NavGridSpacingItemDecorationV : RecyclerView.ItemDecoration() {
 //            mLeftRightSpacing - (column + 1) * mLeftRightSpacing / mSpanCount // spacing - (column + 1) * ((1f /    spanCount) * spacing)
         Log.d(
             "GridDe",
-            "position = ${position}, content = ${(view as TextView).text}, left = ${outRect.left}, right = ${outRect.right}"
+            "position = ${position}, column = $column, " +
+                    "spanIndex = ${((view.layoutParams as? StaggeredGridLayoutManager.LayoutParams)?.spanIndex)}, " +
+                    "content = ${(view as TextView).text}, left = ${outRect.left}, " +
+                    "right = ${outRect.right}, width = ${view.layoutParams?.width}"
         )
 //            if (mTopSpacing != INVALID_SPACING_VALUE) {
 //                outRect.top = mTopSpacing
