@@ -82,9 +82,14 @@ class AnnotationActivity : AppCompatActivity() {
         itemDecoration.setSpacing(leftRight = 28, top = 28, spanCount = SPAN_COUNT)
         mAnnotationRv?.adapter = MyAdapter()
 
-        mListUIs?.forEach {
-            if (it is TextView) {
-                Log.i(TAG, "list content is ${it.text}")
+        run outSide@{
+            mListUIs?.forEachIndexed { index, view ->
+                if (view is TextView) {
+                    Log.i(TAG, "list content is ${view.text}, index = $index")
+                }
+                if (index == 0) {
+                    return@outSide
+                }
             }
         }
         val hashSet = hashSetOf<TestLateInit>()
