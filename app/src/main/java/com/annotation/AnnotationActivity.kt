@@ -9,9 +9,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import androidx.recyclerview.widget.StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS
 import com.annotation.FeedFlowProperty.Companion.FEED_FLOW_ITEM_MAX_WIDTH_VALUE
 import com.auto.service.BaseDataService
 import com.example.myapplication.R
@@ -69,15 +69,16 @@ class AnnotationActivity : AppCompatActivity() {
             Log.i("MyLinearLayout", "post call")
         }
 
-        val layoutManager = StaggeredGridLayoutManager(
+        val layoutManager = GridLayoutManager(
+            this,
             SPAN_COUNT,
-            StaggeredGridLayoutManager.VERTICAL
+            GridLayoutManager.HORIZONTAL,
+            false
         )
-        layoutManager.gapStrategy = GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS
         mAnnotationRv?.layoutManager = layoutManager
 
 
-        val itemDecoration = NavGridSpacingItemDecorationV()
+        val itemDecoration = NavGridSpacingItemDecoration()
         mAnnotationRv?.addItemDecoration(itemDecoration)
         itemDecoration.setSpacing(leftRight = 28, top = 28, spanCount = SPAN_COUNT)
         mAnnotationRv?.adapter = MyAdapter()
@@ -118,6 +119,17 @@ class AnnotationActivity : AppCompatActivity() {
             mCountDownLatch.await()
             Log.i(TAG, "thread await end")
         }.start()
+
+        val test = "1234"
+        var demo = mutableMapOf<String, String>()
+        test?.apply {
+            demo[""] = this
+            Log.i(TAG, "demo value is = ${demo.size}, demo = $demo")
+        }
+
+        mAnnotationTv?.post {
+            Log.i(TAG, "getViewHeight value is = ${mAnnotationTv.getViewHeight()}")
+        }
     }
 
     //    @FuncTimeCost
@@ -132,7 +144,19 @@ class AnnotationActivity : AppCompatActivity() {
 
     companion object {
         const val TAG = "AnnotationActivity"
-        const val SPAN_COUNT = 3
+        const val SPAN_COUNT = 1
+    }
+
+
+    private fun View?.getViewHeight(): Int {
+        return this?.let {
+            var realHeight = it.height
+            if (realHeight == 0) {
+                it.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
+                realHeight = it.measuredHeight
+            }
+            realHeight
+        } ?: -1
     }
 
     @FuncTimeCost
@@ -174,7 +198,7 @@ class AnnotationActivity : AppCompatActivity() {
         }
 
         override fun getItemCount(): Int {
-            return 4
+            return 5
         }
 
         class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -191,7 +215,8 @@ class AnnotationActivity : AppCompatActivity() {
             }
 
             fun updateData(value: String) {
-                mDemoItemTv?.layoutParams?.width = StaggeredGridLayoutManager.LayoutParams.MATCH_PARENT /*((Resources.getSystem()
+                mDemoItemTv?.layoutParams?.width =
+                    StaggeredGridLayoutManager.LayoutParams.MATCH_PARENT /*((Resources.getSystem()
                     .displayMetrics.widthPixels - 28 * (SPAN_COUNT - 1)).toFloat() / SPAN_COUNT).roundToInt()*/
                 mDemoItemTv?.text = value
             }
