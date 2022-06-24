@@ -1,6 +1,7 @@
 package com.annotation
 
 import android.content.Intent
+import android.content.res.Resources
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,7 +12,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.annotation.FeedFlowProperty.Companion.FEED_FLOW_ITEM_MAX_WIDTH_VALUE
 import com.auto.service.BaseDataService
 import com.example.myapplication.R
@@ -22,6 +22,7 @@ import com.sk.dagger.bts_annotation.TestDe
 import com.sk.dagger.bts_annotation.TestKDe
 import java.util.*
 import java.util.concurrent.CountDownLatch
+import kotlin.math.roundToInt
 
 /**
  * @author Lee
@@ -79,6 +80,7 @@ class AnnotationActivity : AppCompatActivity() {
 
 
         val itemDecoration = NavGridSpacingItemDecoration()
+        mAnnotationRv?.isNestedScrollingEnabled = true
         mAnnotationRv?.addItemDecoration(itemDecoration)
         itemDecoration.setSpacing(leftRight = 28, top = 28, spanCount = SPAN_COUNT)
         mAnnotationRv?.adapter = MyAdapter()
@@ -216,8 +218,9 @@ class AnnotationActivity : AppCompatActivity() {
 
             fun updateData(value: String) {
                 mDemoItemTv?.layoutParams?.width =
-                    StaggeredGridLayoutManager.LayoutParams.MATCH_PARENT /*((Resources.getSystem()
-                    .displayMetrics.widthPixels - 28 * (SPAN_COUNT - 1)).toFloat() / SPAN_COUNT).roundToInt()*/
+//                         StaggeredGridLayoutManager.LayoutParams.MATCH_PARENT
+                    ((Resources.getSystem()
+                        .displayMetrics.widthPixels - 28 * (4 - 1)).toFloat() / 4).roundToInt()
                 mDemoItemTv?.text = value
             }
 
