@@ -54,7 +54,8 @@ class NavGridSpacingItemDecoration : RecyclerView.ItemDecoration() {
         if (layoutManager is GridLayoutManager) {
             if (layoutManager.orientation == GridLayoutManager.VERTICAL) {
                 val position: Int = parent.getChildAdapterPosition(view) // item position
-                val column = position % mSpanCount
+                val column =
+                    (view.layoutParams as GridLayoutManager.LayoutParams).spanIndex /*position % mSpanCount*/
                 outRect.left =
                     column * mLeftRightSpacing / mSpanCount
                 outRect.right =
