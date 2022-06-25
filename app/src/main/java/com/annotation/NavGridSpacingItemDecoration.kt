@@ -77,19 +77,12 @@ class NavGridSpacingItemDecoration : RecyclerView.ItemDecoration() {
                 )
             } else {
                 val position: Int = parent.getChildAdapterPosition(view) // item position
-                var column: Int
-                var div: Int
-                if (mSpanCount == 1) {
-                    div = mItemCount
-                    column = position % div
-                } else {
-                    div = ceil(mItemCount.toFloat() / mSpanCount).toInt()
-                    column = (position / mSpanCount) % div
-                    val spanIndex = (view.layoutParams as GridLayoutManager.LayoutParams).spanIndex
-                    outRect.top = spanIndex * mTopBottomSpacing / mSpanCount
-                    outRect.bottom =
-                        mTopBottomSpacing - (spanIndex + 1) * mTopBottomSpacing / mSpanCount
-                }
+                val div = ceil(mItemCount.toFloat() / mSpanCount).toInt()
+                val column = (position / mSpanCount) % div
+                val spanIndex = (view.layoutParams as GridLayoutManager.LayoutParams).spanIndex
+                outRect.top = spanIndex * mTopBottomSpacing / mSpanCount
+                outRect.bottom =
+                    mTopBottomSpacing - (spanIndex + 1) * mTopBottomSpacing / mSpanCount
 
                 outRect.left = column * mLeftRightSpacing / div
                 outRect.right =

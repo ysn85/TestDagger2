@@ -148,9 +148,9 @@ class AnnotationActivity : AppCompatActivity() {
 
     companion object {
         const val TAG = "AnnotationActivity"
-        const val SPAN_COUNT = 3
+        const val SPAN_COUNT = 1
         const val COLUMN = 4
-        const val ITEM_COUNT = 31
+        const val ITEM_COUNT = 7
     }
 
 
