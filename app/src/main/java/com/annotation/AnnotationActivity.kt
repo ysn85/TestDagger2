@@ -73,16 +73,15 @@ class AnnotationActivity : AppCompatActivity() {
         val layoutManager = GridLayoutManager(
             this,
             SPAN_COUNT,
-            GridLayoutManager.HORIZONTAL,
+            RecyclerView.VERTICAL,
             false
         )
         mAnnotationRv?.layoutManager = layoutManager
 
 
         val itemDecoration = NavGridSpacingItemDecoration()
-        mAnnotationRv?.isNestedScrollingEnabled = true
         mAnnotationRv?.addItemDecoration(itemDecoration)
-        itemDecoration.setSpacing(leftRight = 28, top = 28, spanCount = SPAN_COUNT)
+        itemDecoration.setSpacing(leftRight = 28, top = 28, spanCount = 4)
         mAnnotationRv?.adapter = MyAdapter()
 
         run outSide@{
@@ -116,11 +115,11 @@ class AnnotationActivity : AppCompatActivity() {
             Log.i(TAG, "testServiceLoader ${it.data}")
         }
 
-        Thread {
-            Log.i(TAG, "thread await")
-            mCountDownLatch.await()
-            Log.i(TAG, "thread await end")
-        }.start()
+//        Thread {
+//            Log.i(TAG, "thread await")
+//            mCountDownLatch.await()
+//            Log.i(TAG, "thread await end")
+//        }.start()
 
         val test = "1234"
         var demo = mutableMapOf<String, String>()
@@ -146,7 +145,7 @@ class AnnotationActivity : AppCompatActivity() {
 
     companion object {
         const val TAG = "AnnotationActivity"
-        const val SPAN_COUNT = 1
+        const val SPAN_COUNT = 4
     }
 
 
@@ -200,7 +199,7 @@ class AnnotationActivity : AppCompatActivity() {
         }
 
         override fun getItemCount(): Int {
-            return 5
+            return 10
         }
 
         class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

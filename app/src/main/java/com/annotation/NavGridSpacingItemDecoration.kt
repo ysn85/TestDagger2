@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import kotlin.math.abs
 
 
 /**
@@ -52,44 +51,17 @@ class NavGridSpacingItemDecoration : RecyclerView.ItemDecoration() {
         super.getItemOffsets(outRect, view, parent, state)
         val position: Int = parent.getChildAdapterPosition(view) // item position
         val rows = position % mSpanCount // 元素所处行号0..n
-        val column = abs(position - rows) / mSpanCount
-
+        val column = position % mSpanCount
         outRect.left =
             column * mLeftRightSpacing / mSpanCount
         outRect.right =
             mLeftRightSpacing - (column + 1) * mLeftRightSpacing / mSpanCount
-
-//        if (rows == 0) { // 第一行
-//            val column = position / 2
-//            outRect.left =
-//                column * mLeftRightSpacing / mSpanCount // column * ((1f / spanCount) * spacing)
-//            outRect.right =
-//                mLeftRightSpacing - (column + 1) * mLeftRightSpacing / mSpanCount // spacing - (column + 1) * ((1f /    spanCount) * spacing)
-//        } else {
-//            val column = (position - 1) / 2
-//            outRect.left =
-//                column * mLeftRightSpacing / mSpanCount // column * ((1f / spanCount) * spacing)
-//            outRect.right =
-//                mLeftRightSpacing - (column + 1) * mLeftRightSpacing / mSpanCount // spacing - (column + 1) * ((1f /    spanCount) * spacing)
-//        }
-
-        // 1,3,5,7,9
-        // 0,2,4,6,8
-//        outRect.left =
-//            column * mLeftRightSpacing / mSpanCount // column * ((1f / spanCount) * spacing)
-//        outRect.right =
-//            mLeftRightSpacing - (column + 1) * mLeftRightSpacing / mSpanCount // spacing - (column + 1) * ((1f /    spanCount) * spacing)
         Log.d(
             "GridDe",
-            "position = ${position}, content = ${(view as TextView).text}, left = ${outRect.left}, right = ${outRect.right}, rows = $rows"
+            "position = ${position}, content = ${(view as TextView).text}, " +
+                    "left = ${outRect.left}, right = ${outRect.right}, rows = $rows, column = $column"
         )
-        if (rows > 0) {
-//            if (mTopSpacing != INVALID_SPACING_VALUE) {
-//                outRect.top = mTopSpacing
-//            }
-//            if (mBottomSpacing != INVALID_SPACING_VALUE) {
-//                outRect.bottom = mBottomSpacing
-//            }
+        if (position >= mSpanCount) {
             outRect.top = mTopSpacing
         }
     }
