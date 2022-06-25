@@ -16,8 +16,7 @@ import kotlin.math.ceil
  */
 class NavGridSpacingItemDecoration : RecyclerView.ItemDecoration() {
     private var mLeftRightSpacing = INVALID_SPACING_VALUE
-    private var mTopSpacing = INVALID_SPACING_VALUE
-    private var mBottomSpacing = INVALID_SPACING_VALUE
+    private var mTopBottomSpacing = INVALID_SPACING_VALUE
     private var mSpanCount = INVALID_SPACING_VALUE
     private var mCol = INVALID_SPACING_VALUE
     private var mItemCount = INVALID_SPACING_VALUE
@@ -37,14 +36,12 @@ class NavGridSpacingItemDecoration : RecyclerView.ItemDecoration() {
     fun setSpacing(
         leftRight: Int = INVALID_SPACING_VALUE,
         top: Int = INVALID_SPACING_VALUE,
-        bottom: Int = INVALID_SPACING_VALUE,
         spanCount: Int = INVALID_SPACING_VALUE,
         col: Int = INVALID_SPACING_VALUE,
         itemCount: Int = INVALID_SPACING_VALUE
     ) {
         mLeftRightSpacing = leftRight
-        mTopSpacing = top
-        mBottomSpacing = bottom
+        mTopBottomSpacing = top
         mSpanCount = spanCount
         mCol = col
         mItemCount = itemCount
@@ -67,8 +64,8 @@ class NavGridSpacingItemDecoration : RecyclerView.ItemDecoration() {
                     column * mLeftRightSpacing / mSpanCount
                 outRect.right =
                     mLeftRightSpacing - (column + 1) * mLeftRightSpacing / mSpanCount
-                if (position >= mSpanCount && mTopSpacing != INVALID_SPACING_VALUE) {
-                    outRect.top = mTopSpacing
+                if (position >= mSpanCount && mTopBottomSpacing != INVALID_SPACING_VALUE) {
+                    outRect.top = mTopBottomSpacing
                 }
                 Log.d(
                     "GridDe",
@@ -91,8 +88,8 @@ class NavGridSpacingItemDecoration : RecyclerView.ItemDecoration() {
 
 
                     val spanIndex = (view.layoutParams as GridLayoutManager.LayoutParams).spanIndex
-                    outRect.top = spanIndex * mTopSpacing / mSpanCount
-                    outRect.bottom = mTopSpacing - (spanIndex + 1) * mTopSpacing / mSpanCount
+                    outRect.top = spanIndex * mTopBottomSpacing / mSpanCount
+                    outRect.bottom = mTopBottomSpacing - (spanIndex + 1) * mTopBottomSpacing / mSpanCount
                 }
 
                 outRect.left = column * mLeftRightSpacing / div
