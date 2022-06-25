@@ -83,7 +83,7 @@ class AnnotationActivity : AppCompatActivity() {
         mAnnotationRv?.addItemDecoration(itemDecoration)
         itemDecoration.setSpacing(
             leftRight = 28, top = 28,
-            spanCount = SPAN_COUNT, itemCount = ITEM_COUNT
+            spanCount = SPAN_COUNT, col = COLUMN, itemCount = ITEM_COUNT
         )
         mAnnotationRv?.adapter = MyAdapter()
 
@@ -148,9 +148,9 @@ class AnnotationActivity : AppCompatActivity() {
 
     companion object {
         const val TAG = "AnnotationActivity"
-        const val SPAN_COUNT = 1
+        const val SPAN_COUNT = 3
         const val COLUMN = 4
-        const val ITEM_COUNT = 10
+        const val ITEM_COUNT = 30
     }
 
 

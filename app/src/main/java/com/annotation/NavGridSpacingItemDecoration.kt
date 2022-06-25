@@ -18,6 +18,7 @@ class NavGridSpacingItemDecoration : RecyclerView.ItemDecoration() {
     private var mTopSpacing = INVALID_SPACING_VALUE
     private var mBottomSpacing = INVALID_SPACING_VALUE
     private var mSpanCount = INVALID_SPACING_VALUE
+    private var mCol = INVALID_SPACING_VALUE
     private var mItemCount = INVALID_SPACING_VALUE
 
     /**
@@ -37,12 +38,14 @@ class NavGridSpacingItemDecoration : RecyclerView.ItemDecoration() {
         top: Int = INVALID_SPACING_VALUE,
         bottom: Int = INVALID_SPACING_VALUE,
         spanCount: Int = INVALID_SPACING_VALUE,
+        col: Int = INVALID_SPACING_VALUE,
         itemCount: Int = INVALID_SPACING_VALUE
     ) {
         mLeftRightSpacing = leftRight
         mTopSpacing = top
         mBottomSpacing = bottom
         mSpanCount = spanCount
+        mCol = col
         mItemCount = itemCount
     }
 
@@ -77,21 +80,18 @@ class NavGridSpacingItemDecoration : RecyclerView.ItemDecoration() {
             } else {
                 val position: Int = parent.getChildAdapterPosition(view) // item position
                 var column: Int
+                var div: Int
                 if (mSpanCount == 1) {
-                    column = position % mItemCount
-                    outRect.left = column * mLeftRightSpacing / mItemCount
-                    outRect.right =
-                        mLeftRightSpacing - (column + 1) * mLeftRightSpacing / mItemCount
+                    div = mItemCount
+                    column = position % div
                 } else {
-                    column = position / mSpanCount
-                    outRect.left =
-                        column * mLeftRightSpacing / (mSpanCount + column)
-                    outRect.right =
-                        mLeftRightSpacing - (column + 1) * mLeftRightSpacing / (mSpanCount + column)
-                    //                if (column > 0 && mTopSpacing != INVALID_SPACING_VALUE) {
-                    outRect.top = mTopSpacing
-//                }
+                    div = mCol + 1
+                    column = (position / mSpanCount) % div
                 }
+
+                outRect.left = column * mLeftRightSpacing / div
+                outRect.right =
+                    mLeftRightSpacing - (column + 1) * mLeftRightSpacing / div
 
                 Log.d(
                     "GridDe",
@@ -99,8 +99,7 @@ class NavGridSpacingItemDecoration : RecyclerView.ItemDecoration() {
                             "left = ${outRect.left} " +
                             "right = ${outRect.right}" +
                             " column = $column, " +
-                            "spanIndex = ${(view.layoutParams as GridLayoutManager.LayoutParams).spanIndex}," +
-                            " childCount = ${parent.childCount}"
+                            "spanIndex = ${(view.layoutParams as GridLayoutManager.LayoutParams).spanIndex}"
                 )
             }
         }
