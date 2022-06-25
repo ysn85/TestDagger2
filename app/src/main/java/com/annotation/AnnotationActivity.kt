@@ -72,8 +72,8 @@ class AnnotationActivity : AppCompatActivity() {
 
         val layoutManager = GridLayoutManager(
             this,
-            SPAN_COUNT,
-            RecyclerView.VERTICAL,
+            ROWS,
+            GridLayoutManager.VERTICAL,
             false
         )
         mAnnotationRv?.layoutManager = layoutManager
@@ -81,7 +81,7 @@ class AnnotationActivity : AppCompatActivity() {
 
         val itemDecoration = NavGridSpacingItemDecoration()
         mAnnotationRv?.addItemDecoration(itemDecoration)
-        itemDecoration.setSpacing(leftRight = 28, top = 28, spanCount = 4)
+        itemDecoration.setSpacing(leftRight = 28, top = 28, spanCount = ROWS)
         mAnnotationRv?.adapter = MyAdapter()
 
         run outSide@{
@@ -145,7 +145,9 @@ class AnnotationActivity : AppCompatActivity() {
 
     companion object {
         const val TAG = "AnnotationActivity"
-        const val SPAN_COUNT = 4
+        const val ROWS = 4
+        const val COLUMN = 4
+        const val ITEM_COUNT = 15
     }
 
 
@@ -199,7 +201,7 @@ class AnnotationActivity : AppCompatActivity() {
         }
 
         override fun getItemCount(): Int {
-            return 10
+            return ITEM_COUNT
         }
 
         class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -219,7 +221,7 @@ class AnnotationActivity : AppCompatActivity() {
                 mDemoItemTv?.layoutParams?.width =
 //                         StaggeredGridLayoutManager.LayoutParams.MATCH_PARENT
                     ((Resources.getSystem()
-                        .displayMetrics.widthPixels - 28 * (4 - 1)).toFloat() / 4).roundToInt()
+                        .displayMetrics.widthPixels - 28 * (COLUMN - 1)).toFloat() / COLUMN).roundToInt()
                 mDemoItemTv?.text = value
             }
 

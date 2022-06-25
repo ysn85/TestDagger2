@@ -4,6 +4,7 @@ import android.graphics.Rect
 import android.util.Log
 import android.view.View
 import android.widget.TextView
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 
@@ -49,20 +50,46 @@ class NavGridSpacingItemDecoration : RecyclerView.ItemDecoration() {
         state: RecyclerView.State
     ) {
         super.getItemOffsets(outRect, view, parent, state)
-        val position: Int = parent.getChildAdapterPosition(view) // item position
-        val rows = position % mSpanCount // 元素所处行号0..n
-        val column = position % mSpanCount
-        outRect.left =
-            column * mLeftRightSpacing / mSpanCount
-        outRect.right =
-            mLeftRightSpacing - (column + 1) * mLeftRightSpacing / mSpanCount
-        Log.d(
-            "GridDe",
-            "position = ${position}, content = ${(view as TextView).text}, " +
-                    "left = ${outRect.left}, right = ${outRect.right}, rows = $rows, column = $column"
-        )
-        if (position >= mSpanCount) {
-            outRect.top = mTopSpacing
+        val layoutManager = parent.layoutManager
+        if (layoutManager is GridLayoutManager) {
+            if (layoutManager.orientation == GridLayoutManager.VERTICAL) {
+                val position: Int = parent.getChildAdapterPosition(view) // item position
+                val column = position % mSpanCount
+                outRect.left =
+                    column * mLeftRightSpacing / mSpanCount
+                outRect.right =
+                    mLeftRightSpacing - (column + 1) * mLeftRightSpacing / mSpanCount
+                if (position >= mSpanCount && mTopSpacing != INVALID_SPACING_VALUE) {
+                    outRect.top = mTopSpacing
+                }
+                Log.d(
+                    "GridDe",
+                    "position = ${position}, content = ${(view as TextView).text}, " +
+                            "left = ${outRect.left}, top = ${outRect.top}, " +
+                            "right = ${outRect.right}" +
+                            " column = $column, " +
+                            "spanIndex = ${(view.layoutParams as GridLayoutManager.LayoutParams).spanIndex}"
+                )
+            } else {
+                val position: Int = parent.getChildAdapterPosition(view) // item position
+                val rows = position % mSpanCount // 元素所处行号0..n
+                val column = position % mSpanCount
+                outRect.left =
+                    column * mLeftRightSpacing / mSpanCount
+                outRect.right =
+                    mLeftRightSpacing - (column + 1) * mLeftRightSpacing / mSpanCount
+                if (column > 0 && mTopSpacing != INVALID_SPACING_VALUE) {
+                    outRect.top = mTopSpacing
+                }
+                Log.d(
+                    "GridDe",
+                    "position = ${position}, content = ${(view as TextView).text}, " +
+                            "left = ${outRect.left}, top = ${outRect.top}, " +
+                            "right = ${outRect.right}" +
+                            " rows = $rows, column = $column, " +
+                            "spanIndex = ${(view.layoutParams as GridLayoutManager.LayoutParams).spanIndex}"
+                )
+            }
         }
     }
 }
