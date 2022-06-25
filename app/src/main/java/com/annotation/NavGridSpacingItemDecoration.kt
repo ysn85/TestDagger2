@@ -35,13 +35,13 @@ class NavGridSpacingItemDecoration : RecyclerView.ItemDecoration() {
 
     fun setSpacing(
         leftRight: Int = INVALID_SPACING_VALUE,
-        top: Int = INVALID_SPACING_VALUE,
+        topBottom: Int = INVALID_SPACING_VALUE,
         spanCount: Int = INVALID_SPACING_VALUE,
         col: Int = INVALID_SPACING_VALUE,
         itemCount: Int = INVALID_SPACING_VALUE
     ) {
         mLeftRightSpacing = leftRight
-        mTopBottomSpacing = top
+        mTopBottomSpacing = topBottom
         mSpanCount = spanCount
         mCol = col
         mItemCount = itemCount

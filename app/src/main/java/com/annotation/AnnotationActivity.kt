@@ -82,7 +82,7 @@ class AnnotationActivity : AppCompatActivity() {
         val itemDecoration = NavGridSpacingItemDecoration()
         mAnnotationRv?.addItemDecoration(itemDecoration)
         itemDecoration.setSpacing(
-            leftRight = 28, top = 28,
+            leftRight = 28, topBottom = 28,
             spanCount = SPAN_COUNT, col = COLUMN, itemCount = ITEM_COUNT
         )
         mAnnotationRv?.adapter = MyAdapter()
