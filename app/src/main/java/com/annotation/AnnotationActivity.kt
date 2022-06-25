@@ -150,7 +150,7 @@ class AnnotationActivity : AppCompatActivity() {
         const val TAG = "AnnotationActivity"
         const val SPAN_COUNT = 3
         const val COLUMN = 4
-        const val ITEM_COUNT = 30
+        const val ITEM_COUNT = 31
     }
 
 

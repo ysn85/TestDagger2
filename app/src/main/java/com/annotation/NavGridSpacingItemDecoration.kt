@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlin.math.ceil
 
 
 /**
@@ -85,7 +86,7 @@ class NavGridSpacingItemDecoration : RecyclerView.ItemDecoration() {
                     div = mItemCount
                     column = position % div
                 } else {
-                    div = mCol + 1
+                    div = ceil(mItemCount.toDouble() / mSpanCount).toInt()
                     column = (position / mSpanCount) % div
                 }
 
