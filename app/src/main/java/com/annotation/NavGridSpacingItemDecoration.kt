@@ -18,6 +18,7 @@ class NavGridSpacingItemDecoration : RecyclerView.ItemDecoration() {
     private var mTopSpacing = INVALID_SPACING_VALUE
     private var mBottomSpacing = INVALID_SPACING_VALUE
     private var mSpanCount = INVALID_SPACING_VALUE
+    private var mItemCount = INVALID_SPACING_VALUE
 
     /**
      * 是否包含左右边距
@@ -35,12 +36,14 @@ class NavGridSpacingItemDecoration : RecyclerView.ItemDecoration() {
         leftRight: Int = INVALID_SPACING_VALUE,
         top: Int = INVALID_SPACING_VALUE,
         bottom: Int = INVALID_SPACING_VALUE,
-        spanCount: Int = INVALID_SPACING_VALUE
+        spanCount: Int = INVALID_SPACING_VALUE,
+        itemCount: Int = INVALID_SPACING_VALUE
     ) {
         mLeftRightSpacing = leftRight
         mTopSpacing = top
         mBottomSpacing = bottom
         mSpanCount = spanCount
+        mItemCount = itemCount
     }
 
     override fun getItemOffsets(
@@ -73,22 +76,31 @@ class NavGridSpacingItemDecoration : RecyclerView.ItemDecoration() {
                 )
             } else {
                 val position: Int = parent.getChildAdapterPosition(view) // item position
-                val rows = position % mSpanCount // 元素所处行号0..n
-                val column = position % mSpanCount
-                outRect.left =
-                    column * mLeftRightSpacing / mSpanCount
-                outRect.right =
-                    mLeftRightSpacing - (column + 1) * mLeftRightSpacing / mSpanCount
-                if (column > 0 && mTopSpacing != INVALID_SPACING_VALUE) {
+                var column: Int
+                if (mSpanCount == 1) {
+                    column = position % mItemCount
+                    outRect.left = column * mLeftRightSpacing / mItemCount
+                    outRect.right =
+                        mLeftRightSpacing - (column + 1) * mLeftRightSpacing / mItemCount
+                } else {
+                    column = position / mSpanCount
+                    outRect.left =
+                        column * mLeftRightSpacing / (mSpanCount + column)
+                    outRect.right =
+                        mLeftRightSpacing - (column + 1) * mLeftRightSpacing / (mSpanCount + column)
+                    //                if (column > 0 && mTopSpacing != INVALID_SPACING_VALUE) {
                     outRect.top = mTopSpacing
+//                }
                 }
+
                 Log.d(
                     "GridDe",
                     "position = ${position}, content = ${(view as TextView).text}, " +
-                            "left = ${outRect.left}, top = ${outRect.top}, " +
+                            "left = ${outRect.left} " +
                             "right = ${outRect.right}" +
-                            " rows = $rows, column = $column, " +
-                            "spanIndex = ${(view.layoutParams as GridLayoutManager.LayoutParams).spanIndex}"
+                            " column = $column, " +
+                            "spanIndex = ${(view.layoutParams as GridLayoutManager.LayoutParams).spanIndex}," +
+                            " childCount = ${parent.childCount}"
                 )
             }
         }

@@ -72,8 +72,8 @@ class AnnotationActivity : AppCompatActivity() {
 
         val layoutManager = GridLayoutManager(
             this,
-            ROWS,
-            GridLayoutManager.VERTICAL,
+            SPAN_COUNT,
+            GridLayoutManager.HORIZONTAL,
             false
         )
         mAnnotationRv?.layoutManager = layoutManager
@@ -81,7 +81,10 @@ class AnnotationActivity : AppCompatActivity() {
 
         val itemDecoration = NavGridSpacingItemDecoration()
         mAnnotationRv?.addItemDecoration(itemDecoration)
-        itemDecoration.setSpacing(leftRight = 28, top = 28, spanCount = ROWS)
+        itemDecoration.setSpacing(
+            leftRight = 28, top = 28,
+            spanCount = SPAN_COUNT, itemCount = ITEM_COUNT
+        )
         mAnnotationRv?.adapter = MyAdapter()
 
         run outSide@{
@@ -145,9 +148,9 @@ class AnnotationActivity : AppCompatActivity() {
 
     companion object {
         const val TAG = "AnnotationActivity"
-        const val ROWS = 4
+        const val SPAN_COUNT = 1
         const val COLUMN = 4
-        const val ITEM_COUNT = 15
+        const val ITEM_COUNT = 10
     }
 
 
