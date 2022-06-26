@@ -80,9 +80,11 @@ class NavGridSpacingItemDecoration : RecyclerView.ItemDecoration() {
                 val div = ceil(mItemCount.toFloat() / mSpanCount).toInt()
                 val column = (position / mSpanCount) % div
                 val spanIndex = (view.layoutParams as GridLayoutManager.LayoutParams).spanIndex
-                outRect.top = spanIndex * mTopBottomSpacing / mSpanCount
-                outRect.bottom =
-                    mTopBottomSpacing - (spanIndex + 1) * mTopBottomSpacing / mSpanCount
+                if (mSpanCount > 1) {
+                    outRect.top = spanIndex * mTopBottomSpacing / mSpanCount
+                    outRect.bottom =
+                        mTopBottomSpacing - (spanIndex + 1) * mTopBottomSpacing / mSpanCount
+                }
 
                 outRect.left = column * mLeftRightSpacing / div
                 outRect.right =
